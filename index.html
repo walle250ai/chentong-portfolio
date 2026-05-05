@@ -971,6 +971,39 @@
         
         // Contact Section
         const Contact = () => {
+            const [formState, setFormState] = React.useState({
+                submitting: false,
+                submitted: false,
+                error: false
+            });
+
+            const handleSubmit = async (e) => {
+                e.preventDefault();
+                const form = e.target;
+                
+                setFormState({ submitting: true, submitted: false, error: false });
+                
+                try {
+                    const formData = new FormData(form);
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        setFormState({ submitting: false, submitted: true, error: false });
+                        form.reset();
+                    } else {
+                        throw new Error('Submit failed');
+                    }
+                } catch (error) {
+                    setFormState({ submitting: false, submitted: false, error: true });
+                }
+            };
+
             return (
                 <section id="contact" className="py-20 px-4">
                     <div className="max-w-4xl mx-auto">
@@ -1015,51 +1048,102 @@
                                 </div>
                             </div>
                             
-                            {/* Quick Contact */}
+                            {/* Quick Contact Form */}
                             <div className="glass-effect rounded-2xl p-8">
-                                <h3 className="text-xl font-bold text-white mb-6">直接联系我</h3>
-                                <div className="space-y-6">
+                                <h3 className="text-xl font-bold text-white mb-6">快速留言</h3>
+                                <form 
+                                    onSubmit={handleSubmit}
+                                    action="https://formspree.io/f/xgodkyrk" 
+                                    method="POST"
+                                    className="space-y-4"
+                                >
+                                    {/* Name */}
+                                    <div>
+                                        <label className="block text-gray-400 text-sm mb-2">你的名字</label>
+                                        <input 
+                                            type="text" 
+                                            name="name" 
+                                            required
+                                            disabled={formState.submitting}
+                                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors disabled:opacity-50"
+                                            placeholder="请输入你的名字"
+                                        />
+                                    </div>
+                                    
                                     {/* Email */}
+                                    <div>
+                                        <label className="block text-gray-400 text-sm mb-2">邮箱地址</label>
+                                        <input 
+                                            type="email" 
+                                            name="email" 
+                                            required
+                                            disabled={formState.submitting}
+                                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors disabled:opacity-50"
+                                            placeholder="请输入你的邮箱"
+                                        />
+                                    </div>
+                                    
+                                    {/* Message */}
+                                    <div>
+                                        <label className="block text-gray-400 text-sm mb-2">留言内容</label>
+                                        <textarea 
+                                            name="message" 
+                                            required
+                                            rows="4"
+                                            disabled={formState.submitting}
+                                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors resize-none disabled:opacity-50"
+                                            placeholder="请输入你的留言内容..."
+                                        ></textarea>
+                                    </div>
+                                    
+                                    {/* Submit Button */}
+                                    <button 
+                                        type="submit"
+                                        disabled={formState.submitting}
+                                        className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-semibold hover:shadow-lg hover:shadow-purple-500/30 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                                    >
+                                        <span className="text-2xl">📨</span>
+                                        <span>{formState.submitting ? '发送中...' : '发送消息'}</span>
+                                    </button>
+                                    
+                                    {/* Success Message */}
+                                    {formState.submitted && (
+                                        <div className="text-center py-4">
+                                            <p className="text-green-400 font-medium">✅ 消息发送成功！我会尽快回复你。</p>
+                                        </div>
+                                    )}
+                                    
+                                    {/* Error Message */}
+                                    {formState.error && (
+                                        <div className="text-center py-4">
+                                            <p className="text-red-400 font-medium">❌ 发送失败，请稍后重试。</p>
+                                        </div>
+                                    )}
+                                </form>
+                                
+                                {/* Alternative Contact */}
+                                <div className="mt-6 pt-6 border-t border-white/10">
+                                    <p className="text-gray-500 text-sm text-center mb-4">💡 或者直接给我发邮件</p>
                                     <div className="text-center">
-                                        <p className="text-gray-400 text-sm mb-2">📧 我的邮箱</p>
                                         <a 
                                             href="mailto:chentong250ai@gmail.com"
-                                            className="inline-block text-xl text-purple-400 hover:text-purple-300 font-medium transition-colors"
+                                            className="inline-block text-purple-400 hover:text-purple-300 transition-colors"
                                         >
                                             chentong250ai@gmail.com
                                         </a>
                                     </div>
                                     
-                                    {/* Email Button */}
+                                    {/* GitHub Issues */}
+                                    <p className="text-gray-500 text-sm text-center mt-4 mb-3">💡 技术交流？试试 GitHub Issues</p>
                                     <a 
-                                        href="mailto:chentong250ai@gmail.com?subject=来自技术博客的联系"
+                                        href="https://github.com/walle250ai/chentong-portfolio/issues"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-semibold hover:shadow-lg hover:shadow-purple-500/30 transition-all duration-300 transform hover:scale-105"
+                                        className="w-full flex items-center justify-center gap-3 px-6 py-3 bg-white/5 border border-white/10 rounded-xl font-medium hover:bg-white/10 transition-all duration-300"
                                     >
-                                        <span className="text-2xl">📧</span>
-                                        <span>点击这里给我发邮件</span>
+                                        <span className="text-xl">🐛</span>
+                                        <span>在 GitHub 上给我留言</span>
                                     </a>
-                                    
-                                    {/* GitHub Issues */}
-                                    <div className="pt-4 border-t border-white/10">
-                                        <p className="text-gray-400 text-sm mb-3 text-center">💡 技术交流？试试 GitHub Issues</p>
-                                        <a 
-                                            href="https://github.com/walle250ai/chentong-portfolio/issues"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="w-full flex items-center justify-center gap-3 px-6 py-3 bg-white/5 border border-white/10 rounded-xl font-medium hover:bg-white/10 transition-all duration-300"
-                                        >
-                                            <span className="text-xl">🐛</span>
-                                            <span>在 GitHub 上给我留言</span>
-                                        </a>
-                                    </div>
-                                    
-                                    {/* Instructions */}
-                                    <div className="text-gray-500 text-xs text-center pt-2">
-                                        <p>💡 点击"发邮件"按钮会直接打开你的邮件客户端</p>
-                                        <p>💡 GitHub Issues 更适合技术讨论和项目合作</p>
-                                    </div>
                                 </div>
                             </div>
                         </div>
