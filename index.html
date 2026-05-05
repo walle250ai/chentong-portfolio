@@ -1,13 +1,1145 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
-  </head>
-  <body>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>陈桐 - 3D Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .gold-gradient {
+            background: linear-gradient(135deg, #f5af19 0%, #f12711 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .pulse-ring {
+            animation: pulse-ring 2s infinite;
+        }
+        
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+        
+        .typing-effect {
+            border-right: 2px solid #667eea;
+            animation: blink 0.7s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { border-color: #667eea; }
+            50% { border-color: transparent; }
+        }
+        
+        .scroll-indicator {
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .project-card {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .project-card:hover::before {
+            left: 100%;
+        }
+        
+        .skill-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+    </style>
+</head>
+<body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+    
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+        
+        // 主题1：机器人仿真与具身智能
+        const robotProjects = [
+            {
+                id: 1,
+                name: "Unitree RL Gym",
+                description: "宇树机器人强化学习实现，支持Go2、H1、G1等机器人，集成Isaac Gym和MuJoCo仿真平台",
+                tags: ["Isaac Sim", "MuJoCo", "强化学习", "Unitree"],
+                github: "https://github.com/unitreerobotics/unitree_rl_gym",
+                image: "assets/Unitree RL GYM.gif"
+            },
+            {
+                id: 2,
+                name: "Unitree RL Mjlab",
+                description: "基于MuJoCo的轻量级强化学习项目，支持Go2、A2、G1、H1_2、R1等机器人",
+                tags: ["MuJoCo", "强化学习", "Sim-to-Real", "Unitree"],
+                github: "https://github.com/unitreerobotics/unitree_rl_mjlab",
+                image: "assets/Unitree RL Mjlab.webp"
+            },
+            {
+                id: 3,
+                name: "NVIDIA Isaac Sim",
+                description: "NVIDIA官方开源仿真平台，用于在真实虚拟环境中开发、测试、训练AI驱动机器人",
+                tags: ["Isaac Sim", "Omniverse", "物理仿真", "GPU加速"],
+                github: "https://github.com/isaac-sim/IsaacSim",
+                image: "assets/NVIDIA Isaac Sim.jpg"
+            },
+            {
+                id: 4,
+                name: "DeepMind MuJoCo",
+                description: "DeepMind开源物理引擎，专为机器人、生物力学、图形动画等领域的快速准确仿真设计",
+                tags: ["MuJoCo", "物理引擎", "机器人仿真", "DeepMind"],
+                github: "https://github.com/google-deepmind/mujoco",
+                image: "assets/DeepMind MuJoCo.gif"
+            },
+            {
+                id: 5,
+                name: "Unitree IL LeRobot",
+                description: "宇树模仿学习框架，基于LeRobot开发，支持DP、ACT等主流模仿学习算法",
+                tags: ["模仿学习", "具身智能", "LeRobot", "Unitree"],
+                github: "https://github.com/unitreerobotics",
+                image: "assets/Unitree IL LeRobot.webp"
+            },
+            {
+                id: 6,
+                name: "UnifoLM-WMA-0",
+                description: "宇树开源世界模型-动作架构，跨越多类型机器人实现通用机器人学习",
+                tags: ["世界模型", "通用机器人", "架构设计", "Unitree"],
+                github: "https://github.com/unitreerobotics",
+                image: "assets/UnifoLM-WMA-0.jpg"
+            }
+        ];
+        
+        // 主题2：智能体Agent与AI编程助手
+        const agentProjects = [
+            {
+                id: 1,
+                name: "Trae Agent",
+                description: "字节跳动开源AI编程助手，SWE-bench Verified排名第一，支持多LLM（OpenAI、Anthropic、Ollama等）",
+                tags: ["Trae", "AI编程助手", "SWE-bench", "字节跳动"],
+                github: "https://github.com/bytedance/trae-agent",
+                image: "assets/Trae Agent.png"
+            },
+            {
+                id: 2,
+                name: "Cursor",
+                description: "AI原生IDE，深度代码理解，多文件编辑，智能代码补全，增长最快的AI编程工具",
+                tags: ["Cursor", "AI IDE", "代码理解", "多文件编辑"],
+                github: "https://github.com/getcursor/cursor",
+                image: "assets/Cursor.jpg"
+            },
+            {
+                id: 3,
+                name: "Claude Code",
+                description: "Anthropic官方CLI编程助手，推理能力最强，支持复杂代码分析和重构",
+                tags: ["Claude", "Anthropic", "CLI编程助手", "代码推理"],
+                github: "https://github.com/anthropics/claude-code",
+                image: "assets/Claude Code.png"
+            },
+            {
+                id: 4,
+                name: "GitHub Copilot",
+                description: "微软官方AI编程助手，生态最广，与VS Code深度集成，实时代码补全",
+                tags: ["Copilot", "微软", "VS Code", "实时补全"],
+                github: "https://github.com/github/copilot",
+                image: "assets/GitHub Copilot.webp"
+            },
+            {
+                id: 5,
+                name: "CrewAI",
+                description: "开源多智能体协作框架，自主AI Agent协作，任务编排，多智能体对话",
+                tags: ["CrewAI", "多智能体", "Agent协作", "任务编排"],
+                github: "https://github.com/joaomdmoura/crewAI",
+                image: "assets/CrewAI.png"
+            },
+            {
+                id: 6,
+                name: "AutoGen",
+                description: "微软开源多智能体框架，LLM多智能体对话，自定义角色，工具集成",
+                tags: ["AutoGen", "微软", "多智能体", "LLM对话"],
+                github: "https://github.com/microsoft/autogen",
+                image: "assets/AutoGen.jpg"
+            }
+        ];
+        
+        // 主题3：电商平台与短视频推流
+        const ecommerceProjects = [
+            {
+                id: 1,
+                name: "Spree Commerce",
+                description: "开源无头电商平台，支持REST API、TypeScript SDK和Next.js Storefront，适用于跨境电商、B2B和市场模式",
+                tags: ["电商平台", "Next.js", "无头电商", "Spree"],
+                github: "https://github.com/spree/spree",
+                image: "assets/Spree Commerce.jpg"
+            },
+            {
+                id: 2,
+                name: "Next.js E-commerce",
+                description: "基于Next.js 15、TypeScript和Prisma的现代电商平台，包含管理后台、Stripe支付、新闻订阅和Docker部署",
+                tags: ["Next.js", "电商", "Stripe", "Prisma"],
+                github: "https://github.com/SatvikPraveen/Nextjs-Ecommerce",
+                image: "assets/Next.js E-commerce.png"
+            },
+            {
+                id: 3,
+                name: "Saleor Storefront",
+                description: "基于React、Next.js App Router、TypeScript、GraphQL和Tailwind CSS构建的现代电商前端",
+                tags: ["Saleor", "GraphQL", "Next.js", "电商前端"],
+                github: "https://github.com/saleor/storefront",
+                image: "assets/Saleor Storefront.jpg"
+            },
+            {
+                id: 4,
+                name: "StreamRank",
+                description: "全栈视频推荐平台，实现了受TikTok、Netflix和Spotify启发的生产级排序算法，支持混合推荐引擎",
+                tags: ["推荐系统", "视频推流", "TikTok", "排序算法"],
+                github: "https://github.com/ukimsanov/streamrank-recommendation",
+                image: "assets/StreamRank.png"
+            },
+            {
+                id: 5,
+                name: "Gorse Recommender",
+                description: "AI驱动的开源推荐系统引擎，支持经典/LLM排序器和通过嵌入实现的多模态内容推荐",
+                tags: ["推荐引擎", "Gorse", "LLM排序", "多模态"],
+                github: "https://github.com/gorse-io/gorse",
+                image: "assets/Gorse Recommender.png"
+            },
+            {
+                id: 6,
+                name: "YouTube Recommendation System",
+                description: "基于机器学习的推荐引擎，模仿YouTube视频推荐算法，使用NLP和内容过滤实现视频推荐",
+                tags: ["YouTube", "推荐系统", "NLP", "机器学习"],
+                github: "https://github.com/umang-dadhich/Youtube-Recommendation-System",
+                image: "assets/YouTube Recommendation System.webp"
+            }
+        ];
+        
+        // 主题4：医疗AI架构与系统
+        const medicalProjects = [
+            {
+                id: 1,
+                name: "MONAI",
+                description: "医疗影像AI开源工具包，基于PyTorch生态系统，专为医疗影像分析设计，支持深度学习训练、评估和部署",
+                tags: ["医疗影像", "PyTorch", "深度学习", "MONAI"],
+                github: "https://github.com/Project-MONAI/MONAI",
+                image: "assets/MONAI.jpg"
+            },
+            {
+                id: 2,
+                name: "nnU-Net",
+                description: "全球应用最广泛的医学图像分割框架，自动适应数据集，复现性强，鲁棒性高，支持3D医学图像分割",
+                tags: ["医学图像分割", "U-Net", "3D医学影像", "MIC-DKFZ"],
+                github: "https://github.com/MIC-DKFZ/nnUNet",
+                image: "assets/nnU-Net.jpg"
+            },
+            {
+                id: 3,
+                name: "Medical Detection Toolkit",
+                description: "MIC-DKFZ开发的医学图像检测工具包，支持2D+3D目标检测器实现，包括Mask R-CNN、Retina Net、Retina U-Net等",
+                tags: ["医学图像检测", "目标检测", "Mask R-CNN", "MIC-DKFZ"],
+                github: "https://github.com/MIC-DKFZ",
+                image: "assets/Medical Detection Toolkit.png"
+            },
+            {
+                id: 4,
+                name: "OpenMed",
+                description: "生产级医疗NLP工具包，基于Transformer模型，支持医疗文本实体抽取、断言检测、医疗推理等功能",
+                tags: ["医疗NLP", "Transformer", "文本分析", "OpenMed"],
+                github: "https://github.com/maziyarpanahi/openmed",
+                image: "assets/OpenMed.webp"
+            },
+            {
+                id: 5,
+                name: "CliniQ",
+                description: "AI驱动的临床EMR平台，支持实时语音转文本、临床NLP信息抽取、药物安全检查、ICD-10编码等功能",
+                tags: ["临床NLP", "电子病历", "ICD-10", "语音转文本"],
+                github: "https://github.com/whoevenisshubham/CliniQ",
+                image: "assets/CliniQ.png"
+            },
+            {
+                id: 6,
+                name: "Medical Segmentation Decathlon",
+                description: "医学图像分割挑战赛框架，支持多任务、多模态医学图像分割，是MONAI官方支持的基准数据集",
+                tags: ["医学分割", "MSD挑战", "多模态", "基准数据集"],
+                github: "https://github.com/Project-MONAI/MONAI",
+                image: "assets/Medical Segmentation Decathlon.jpg"
+            }
+        ];
+        
+        // 主题5：金融AI架构与系统
+        const financeProjects = [
+            {
+                id: 1,
+                name: "Qlib (微软)",
+                description: "微软开源的AI驱动量化研究平台，聚焦机器学习+量化投资，内置大量因子库、模型模板（LightGBM、Transformer），支持A股数据",
+                tags: ["量化投资", "微软", "AI量化", "因子研究"],
+                github: "https://github.com/microsoft/qlib",
+                image: "assets/Qlib.jpg"
+            },
+            {
+                id: 2,
+                name: "NVIDIA Fraud Detection",
+                description: "NVIDIA金融欺诈检测蓝图，使用图神经网络(GNN)分析交易关系，实时交易风险评分，支持Dynamo-Triton推理服务器",
+                tags: ["金融风控", "欺诈检测", "GNN", "NVIDIA"],
+                github: "https://github.com/NVIDIA-AI-Blueprints/Financial-Fraud-Detection",
+                image: "assets/NVIDIA Fraud Detection.jpg"
+            },
+            {
+                id: 3,
+                name: "vectorbt",
+                description: "闪电般的矢量化回测引擎，支持高频交易、做市策略、加密货币交易，完整的Tick数据和订单簿支持",
+                tags: ["回测引擎", "高频交易", "矢量化", "加密货币"],
+                github: "https://github.com/polakowo/vectorbt",
+                image: "assets/vectorbt.jpg"
+            },
+            {
+                id: 4,
+                name: "Hummingbot",
+                description: "开源加密货币做市与套利框架，支持跨交易所搬砖、流动性挖矿，可连接Coinbase、Binance、Kraken等",
+                tags: ["做市策略", "加密货币", "跨交易所", "流动性"],
+                github: "https://github.com/hummingbot/hummingbot",
+                image: "assets/Hummingbot.gif"
+            },
+            {
+                id: 5,
+                name: "MarketGuardian",
+                description: "AI驱动的市场异常检测系统，检测股票、加密货币、外汇市场的异常交易模式和潜在欺诈，支持实时监控和分析",
+                tags: ["异常检测", "市场监控", "AI风控", "实时分析"],
+                github: "https://github.com/shaunn17/MarketGuardian",
+                image: "assets/MarketGuardian.jpg"
+            },
+            {
+                id: 6,
+                name: "Finance-LLMs",
+                description: "金融服务中大语言模型(LLM)的实际落地应用案例汇编，涵盖投资研究、风险评估、客户服务等场景",
+                tags: ["金融LLM", "大语言模型", "投资研究", "风控"],
+                github: "https://github.com/kennethleungty/Finance-LLMs",
+                image: "assets/Finance-LLMs.jpg"
+            }
+        ];
+        
+        // 技能数据
+        const skills = [
+            { name: "机器人仿真 (Isaac Sim)", level: 88 },
+            { name: "物理引擎 (MuJoCo)", level: 85 },
+            { name: "强化学习 (RL)", level: 82 },
+            { name: "AI编程助手 (Trae/Cursor)", level: 92 },
+            { name: "智能体框架 (AutoGen/CrewAI)", level: 88 },
+            { name: "推荐系统 (RecSys)", level: 85 },
+            { name: "电商平台开发", level: 88 },
+            { name: "医疗影像分析", level: 80 },
+            { name: "医学图像分割", level: 78 },
+            { name: "医疗NLP", level: 75 },
+            { name: "量化投资 (Qlib)", level: 75 },
+            { name: "金融风控反欺诈", level: 70 },
+            { name: "Python", level: 90 },
+            { name: "网页开发 (React)", level: 85 },
+            { name: "系统架构", level: 80 }
+        ];
+        
+        // 社交链接
+        const socials = [
+            { name: "GitHub", url: "https://github.com/walle250ai", icon: "📦" },
+            { name: "LinkedIn", url: "#", icon: "💼" },
+            { name: "Twitter", url: "#", icon: "🐦" },
+            { name: "Email", url: "mailto:your@email.com", icon: "📧" }
+        ];
+        
+        // 打字机效果组件
+        const TypingEffect = ({ texts, speed = 100 }) => {
+            const [displayText, setDisplayText] = useState('');
+            const [textIndex, setTextIndex] = useState(0);
+            const [isDeleting, setIsDeleting] = useState(false);
+            
+            useEffect(() => {
+                const currentText = texts[textIndex];
+                const timeout = setTimeout(() => {
+                    if (!isDeleting) {
+                        if (displayText.length < currentText.length) {
+                            setDisplayText(currentText.slice(0, displayText.length + 1));
+                        } else {
+                            setTimeout(() => setIsDeleting(true), 2000);
+                        }
+                    } else {
+                        if (displayText.length > 0) {
+                            setDisplayText(currentText.slice(0, displayText.length - 1));
+                        } else {
+                            setIsDeleting(false);
+                            setTextIndex((prev) => (prev + 1) % texts.length);
+                        }
+                    }
+                }, isDeleting ? speed / 2 : speed);
+                
+                return () => clearTimeout(timeout);
+            }, [displayText, isDeleting, textIndex, texts, speed]);
+            
+            return (
+                <span className="typing-effect pr-1">{displayText}</span>
+            );
+        };
+        
+        // 导航栏组件
+        const Navbar = () => {
+            const [scrolled, setScrolled] = useState(false);
+            const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+            
+            useEffect(() => {
+                const handleScroll = () => {
+                    setScrolled(window.scrollY > 50);
+                };
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+            
+            const navLinks = [
+                { name: "首页", href: "#home" },
+                { name: "关于", href: "#about" },
+                { name: "技能", href: "#skills" },
+                { name: "项目", href: "#projects" },
+                { name: "联系", href: "#contact" }
+            ];
+            
+            return (
+                <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass-effect py-3' : 'py-5'}`}>
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="flex justify-between items-center">
+                            <a href="#home" className="text-2xl font-bold gradient-text">
+                                陈桐
+                            </a>
+                            
+                            {/* Desktop Navigation */}
+                            <div className="hidden md:flex space-x-8">
+                                {navLinks.map((link) => (
+                                    <a 
+                                        key={link.name} 
+                                        href={link.href}
+                                        className="nav-link text-gray-300 hover:text-white transition-colors duration-300"
+                                    >
+                                        {link.name}
+                                    </a>
+                                ))}
+                            </div>
+                            
+                            {/* GitHub Link */}
+                            <div className="hidden md:flex items-center space-x-4">
+                                <a 
+                                    href="https://github.com/walle250ai" 
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="glass-effect px-4 py-2 rounded-full hover:bg-white/10 transition-all duration-300"
+                                >
+                                    <span className="mr-2">📦</span>
+                                    GitHub
+                                </a>
+                            </div>
+                            
+                            {/* Mobile Menu Button */}
+                            <button 
+                                className="md:hidden text-white"
+                                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                            >
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    {mobileMenuOpen ? (
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                    ) : (
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                                    )}
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        {/* Mobile Menu */}
+                        {mobileMenuOpen && (
+                            <div className="md:hidden mt-4 glass-effect rounded-lg p-4">
+                                {navLinks.map((link) => (
+                                    <a 
+                                        key={link.name} 
+                                        href={link.href}
+                                        className="block py-2 text-gray-300 hover:text-white"
+                                        onClick={() => setMobileMenuOpen(false)}
+                                    >
+                                        {link.name}
+                                    </a>
+                                ))}
+                                <a 
+                                    href="https://github.com/walle250ai" 
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="block py-2 text-gray-300 hover:text-white"
+                                >
+                                    📦 GitHub
+                                </a>
+                            </div>
+                        )}
+                    </div>
+                </nav>
+            );
+        };
+        
+        // Hero Section
+        const Hero = () => {
+            return (
+                <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
+                    {/* Background Decorations */}
+                    <div className="absolute inset-0 overflow-hidden">
+                        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full filter blur-3xl floating"></div>
+                        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full filter blur-3xl floating" style={{ animationDelay: '1s' }}></div>
+                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full filter blur-3xl"></div>
+                    </div>
+                    
+                    <div className="relative z-10 text-center px-4">
+                        {/* Wall-E Image */}
+                        <div className="relative inline-block mb-8">
+                            <div className="relative z-10 glass-effect rounded-2xl p-6 mx-auto max-w-xs">
+                                <div className="aspect-video rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center overflow-hidden">
+                                    <img 
+                                        src="./assets/wall-e.jpg" 
+                                        alt="机器人瓦力" 
+                                        className="w-full h-full object-cover rounded-xl"
+                                    />
+                                </div>
+                            </div>
+                            {/* Decorative Elements */}
+                            <div className="absolute -top-2 -left-2 w-16 h-16 bg-purple-500/20 rounded-lg -z-0 floating"></div>
+                            <div className="absolute -bottom-2 -right-2 w-16 h-16 bg-pink-500/20 rounded-lg -z-0 floating" style={{ animationDelay: '1s' }}></div>
+                        </div>
+                        
+                        {/* Subtitle */}
+                        <p className="text-gray-400 text-sm sm:text-base uppercase tracking-widest mb-4">
+                            欢迎来到我的数字世界
+                        </p>
+                        
+                        {/* Title */}
+                        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold mb-6">
+                            <span className="text-white">你好，我是</span>
+                            <br />
+                            <span className="gradient-text">陈桐</span>
+                        </h1>
+                        
+                        {/* Typing Effect */}
+                        <div className="text-xl sm:text-2xl lg:text-3xl text-gray-300 mb-8 h-12">
+                            <TypingEffect 
+                                texts={[
+                                    "全栈开发者",
+                                    "3D 交互设计师",
+                                    "AI 技术探索者",
+                                    "开源爱好者"
+                                ]}
+                            />
+                        </div>
+                        
+                        {/* Description */}
+                        <p className="text-gray-400 max-w-2xl mx-auto mb-12 text-lg">
+                            专注于创建优雅、高效且富有创意的数字产品。
+                            用代码构建梦想，用技术改变世界。
+                        </p>
+                        
+                        {/* CTA Buttons */}
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                            <a 
+                                href="#projects"
+                                className="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 transform hover:scale-105"
+                            >
+                                查看项目
+                            </a>
+                            <a 
+                                href="https://github.com/walle250ai"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-8 py-4 glass-effect rounded-full font-semibold hover:bg-white/10 transition-all duration-300"
+                            >
+                                <span className="mr-2">📦</span>
+                                访问 GitHub
+                            </a>
+                        </div>
+                        
+                        {/* Scroll Indicator */}
+                        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 scroll-indicator">
+                            <div className="flex flex-col items-center text-gray-400">
+                                <span className="text-sm mb-2">向下滚动</span>
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+        
+        // About Section
+        const About = () => {
+            return (
+                <section id="about" className="py-20 px-4">
+                    <div className="max-w-6xl mx-auto">
+                        {/* Section Title */}
+                        <div className="text-center mb-16">
+                            <p className="text-purple-400 uppercase tracking-widest mb-2">关于我</p>
+                            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">
+                                <span className="gradient-text">我的故事</span>
+                            </h2>
+                        </div>
+                        
+                        <div className="grid md:grid-cols-2 gap-12 items-center">
+                            {/* Left Side - Image */}
+                            <div className="relative">
+                                <div className="relative z-10 glass-effect rounded-2xl p-8">
+                                    <div className="aspect-square rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center overflow-hidden">
+                                        <img 
+                                            src="./assets/avatar.jpg" 
+                                            alt="陈桐" 
+                                            className="w-full h-full object-cover rounded-xl"
+                                        />
+                                    </div>
+                                </div>
+                                {/* Decorative Elements */}
+                                <div className="absolute -top-4 -left-4 w-24 h-24 bg-purple-500/20 rounded-lg -z-0"></div>
+                                <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-pink-500/20 rounded-lg -z-0"></div>
+                            </div>
+                            
+                            {/* Right Side - Content */}
+                            <div>
+                                <h3 className="text-2xl sm:text-3xl font-bold mb-6 text-white">
+                                    用代码书写精彩人生
+                                </h3>
+                                
+                                <div className="space-y-4 text-gray-300">
+                                    <p>
+                                        你好！我是<span className="gold-gradient font-semibold">陈桐</span>，一个充满热情的开发者。
+                                        我的 GitHub 账号是 <a href="https://github.com/walle250ai" target="_blank" className="text-purple-400 hover:text-purple-300 underline">walle250ai</a>。
+                                    </p>
+                                    
+                                    <p>
+                                        我热爱技术，享受解决复杂问题的过程。从前端的精美界面到后端的高效架构，
+                                        从传统的 Web 开发到前沿的 3D 交互和 AI 技术，我都充满好奇和探索欲望。
+                                    </p>
+                                    
+                                    <p>
+                                        这个作品集网站是我记录成长、展示项目的地方。
+                                        每一个项目都是一段学习的旅程，每一行代码都承载着对技术的热爱。
+                                    </p>
+                                </div>
+                                
+                                {/* Quick Stats */}
+                                <div className="grid grid-cols-3 gap-4 mt-8">
+                                    <div className="glass-effect rounded-xl p-4 text-center">
+                                        <div className="text-3xl font-bold gradient-text mb-1">5+</div>
+                                        <div className="text-gray-400 text-sm">年经验</div>
+                                    </div>
+                                    <div className="glass-effect rounded-xl p-4 text-center">
+                                        <div className="text-3xl font-bold gradient-text mb-1">20+</div>
+                                        <div className="text-gray-400 text-sm">完成项目</div>
+                                    </div>
+                                    <div className="glass-effect rounded-xl p-4 text-center">
+                                        <div className="text-3xl font-bold gradient-text mb-1">∞</div>
+                                        <div className="text-gray-400 text-sm">学习热情</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+        
+        // Skills Section
+        const Skills = () => {
+            const [animated, setAnimated] = useState(false);
+            const sectionRef = useRef(null);
+            
+            useEffect(() => {
+                const observer = new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting) {
+                                setAnimated(true);
+                            }
+                        });
+                    },
+                    { threshold: 0.3 }
+                );
+                
+                if (sectionRef.current) {
+                    observer.observe(sectionRef.current);
+                }
+                
+                return () => {
+                    if (sectionRef.current) {
+                        observer.unobserve(sectionRef.current);
+                    }
+                };
+            }, []);
+            
+            return (
+                <section id="skills" className="py-20 px-4" ref={sectionRef}>
+                    <div className="max-w-4xl mx-auto">
+                        {/* Section Title */}
+                        <div className="text-center mb-16">
+                            <p className="text-purple-400 uppercase tracking-widest mb-2">技能树</p>
+                            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">
+                                <span className="gradient-text">技术栈</span>
+                            </h2>
+                        </div>
+                        
+                        {/* Skills Grid */}
+                        <div className="grid md:grid-cols-2 gap-8">
+                            {skills.map((skill, index) => (
+                                <div key={skill.name} className="glass-effect rounded-xl p-6 card-hover">
+                                    <div className="flex justify-between items-center mb-3">
+                                        <span className="text-white font-semibold">{skill.name}</span>
+                                        <span className="text-purple-400">{skill.level}%</span>
+                                    </div>
+                                    <div className="skill-bar">
+                                        <div 
+                                            className="skill-progress"
+                                            style={{ 
+                                                width: animated ? `${skill.level}%` : '0%',
+                                                transitionDelay: `${index * 100}ms`
+                                            }}
+                                        ></div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        
+                        {/* Tech Icons */}
+                        <div className="mt-16">
+                            <h3 className="text-center text-gray-400 mb-8">相关技术栈</h3>
+                            <div className="flex flex-wrap justify-center gap-4">
+                                {[
+                                    "Isaac Sim", "MuJoCo", "Genesis", "Reinforcement Learning",
+                                    "Unitree Robotics", "Sim-to-Real", "Physics Simulation",
+                                    "Python", "C++", "PyTorch", "TensorFlow",
+                                    "React", "TypeScript", "Node.js", "Git", "Linux",
+                                    "Docker", "GPU Computing", "Omniverse"
+                                ].map((tech) => (
+                                    <div 
+                                        key={tech}
+                                        className="glass-effect px-4 py-2 rounded-full text-gray-300 hover:text-white hover:bg-white/10 transition-all duration-300 cursor-default"
+                                    >
+                                        {tech}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+        
+        // Project Card Component
+        const ProjectCard = ({ project, index }) => (
+            <div 
+                className="project-card glass-effect rounded-2xl overflow-hidden card-hover"
+                style={{ animationDelay: `${index * 100}ms` }}
+            >
+                {/* Project Image */}
+                <div className="relative h-48 overflow-hidden">
+                    <img 
+                        src={project.image} 
+                        alt={project.name}
+                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                </div>
+                
+                {/* Project Content */}
+                <div className="p-6">
+                    <h3 className="text-xl font-bold text-white mb-2">{project.name}</h3>
+                    <p className="text-gray-400 text-sm mb-4 line-clamp-2">{project.description}</p>
+                    
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                        {project.tags.map((tag) => (
+                            <span 
+                                key={tag}
+                                className="px-2 py-1 bg-purple-500/20 text-purple-300 text-xs rounded-full"
+                            >
+                                {tag}
+                            </span>
+                        ))}
+                    </div>
+                    
+                    {/* Links */}
+                    <div className="flex gap-3">
+                        <a 
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
+                        >
+                            <span>📦</span>
+                            <span>查看源码</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        );
+        
+        // Theme Section Component
+        const ThemeSection = ({ title, subtitle, projects, gradientColor }) => (
+            <div className="mb-16">
+                {/* Theme Title */}
+                <div className="text-center mb-12">
+                    <p className="text-gray-400 uppercase tracking-widest mb-2">{subtitle}</p>
+                    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
+                        <span className="gradient-text">{title}</span>
+                    </h3>
+                </div>
+                
+                {/* Projects Grid */}
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {projects.map((project, index) => (
+                        <ProjectCard key={project.id} project={project} index={index} />
+                    ))}
+                </div>
+            </div>
+        );
+        
+        // Projects Section
+        const Projects = () => {
+            return (
+                <section id="projects" className="py-20 px-4">
+                    <div className="max-w-6xl mx-auto">
+                        {/* Main Section Title */}
+                        <div className="text-center mb-16">
+                            <p className="text-purple-400 uppercase tracking-widest mb-2">技术领域</p>
+                            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+                                <span className="gradient-text">项目展示</span>
+                            </h2>
+                            <p className="text-gray-400 max-w-2xl mx-auto">
+                                探索我关注的技术领域和相关项目。
+                                查看我的 GitHub 获取更多项目详情：
+                                <a href="https://github.com/walle250ai" target="_blank" className="text-purple-400 hover:text-purple-300 underline ml-2">
+                                    walle250ai
+                                </a>
+                            </p>
+                        </div>
+                        
+                        {/* Theme 1: 机器人仿真与具身智能 */}
+                        <ThemeSection 
+                            title="机器人仿真与具身智能"
+                            subtitle="主题1"
+                            projects={robotProjects}
+                            gradientColor="purple"
+                        />
+                        
+                        {/* Theme 2: 智能体Agent与AI编程助手 */}
+                        <ThemeSection 
+                            title="智能体Agent与AI编程助手"
+                            subtitle="主题2"
+                            projects={agentProjects}
+                            gradientColor="pink"
+                        />
+                        
+                        {/* Theme 3: 电商平台与短视频推流 */}
+                        <ThemeSection 
+                            title="电商平台与短视频推流"
+                            subtitle="主题3"
+                            projects={ecommerceProjects}
+                            gradientColor="blue"
+                        />
+                        
+                        {/* Theme 4: 医疗AI架构与系统 */}
+                        <ThemeSection 
+                            title="医疗AI架构与系统"
+                            subtitle="主题4"
+                            projects={medicalProjects}
+                            gradientColor="green"
+                        />
+                        
+                        {/* Theme 5: 金融AI架构与系统 */}
+                        <ThemeSection 
+                            title="金融AI架构与系统"
+                            subtitle="主题5"
+                            projects={financeProjects}
+                            gradientColor="amber"
+                        />
+                        
+                        {/* View More CTA */}
+                        <div className="text-center mt-12">
+                            <a 
+                                href="https://github.com/walle250ai?tab=repositories"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 px-8 py-4 glass-effect rounded-full font-semibold hover:bg-white/10 transition-all duration-300"
+                            >
+                                <span>📦</span>
+                                <span>在 GitHub 查看更多项目</span>
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+        
+        // Contact Section
+        const Contact = () => {
+            return (
+                <section id="contact" className="py-20 px-4">
+                    <div className="max-w-4xl mx-auto">
+                        {/* Section Title */}
+                        <div className="text-center mb-16">
+                            <p className="text-purple-400 uppercase tracking-widest mb-2">联系方式</p>
+                            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+                                <span className="gradient-text">保持联系</span>
+                            </h2>
+                            <p className="text-gray-400 max-w-2xl mx-auto">
+                                有项目想法？想交流技术？或者只是想打个招呼？
+                                随时欢迎联系我！
+                            </p>
+                        </div>
+                        
+                        {/* Contact Cards */}
+                        <div className="grid md:grid-cols-2 gap-8 mb-12">
+                            {/* Social Links */}
+                            <div className="glass-effect rounded-2xl p-8">
+                                <h3 className="text-xl font-bold text-white mb-6">社交媒体</h3>
+                                <div className="space-y-4">
+                                    {socials.map((social) => (
+                                        <a 
+                                            key={social.name}
+                                            href={social.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex items-center gap-4 p-4 rounded-xl hover:bg-white/5 transition-all duration-300 group"
+                                        >
+                                            <span className="text-2xl">{social.icon}</span>
+                                            <div>
+                                                <p className="text-white font-medium group-hover:text-purple-400 transition-colors">{social.name}</p>
+                                                {social.name === 'GitHub' && (
+                                                    <p className="text-gray-500 text-sm">@walle250ai</p>
+                                                )}
+                                            </div>
+                                            <svg className="w-5 h-5 text-gray-500 ml-auto group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </a>
+                                    ))}
+                                </div>
+                            </div>
+                            
+                            {/* Quick Message */}
+                            <div className="glass-effect rounded-2xl p-8">
+                                <h3 className="text-xl font-bold text-white mb-6">快速留言</h3>
+                                <div className="space-y-4">
+                                    <div>
+                                        <label className="block text-gray-400 text-sm mb-2">你的名字</label>
+                                        <input 
+                                            type="text"
+                                            placeholder="请输入你的名字..."
+                                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-gray-400 text-sm mb-2">邮箱地址</label>
+                                        <input 
+                                            type="email"
+                                            placeholder="请输入你的邮箱..."
+                                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-gray-400 text-sm mb-2">留言内容</label>
+                                        <textarea 
+                                            placeholder="想对我说些什么..."
+                                            rows="3"
+                                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors resize-none"
+                                        ></textarea>
+                                    </div>
+                                    <button className="w-full px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-semibold hover:shadow-lg hover:shadow-purple-500/30 transition-all duration-300">
+                                        发送消息
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {/* GitHub Stats */}
+                        <div className="glass-effect rounded-2xl p-8 text-center">
+                            <h3 className="text-xl font-bold text-white mb-6">我的 GitHub</h3>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                                <div>
+                                    <div className="text-3xl font-bold gradient-text mb-1">⭐</div>
+                                    <div className="text-gray-400 text-sm">Star 我的项目</div>
+                                </div>
+                                <div>
+                                    <div className="text-3xl font-bold gradient-text mb-1">🍴</div>
+                                    <div className="text-gray-400 text-sm">Fork 我的代码</div>
+                                </div>
+                                <div>
+                                    <div className="text-3xl font-bold gradient-text mb-1">🐛</div>
+                                    <div className="text-gray-400 text-sm">提交 Issues</div>
+                                </div>
+                                <div>
+                                    <div className="text-3xl font-bold gradient-text mb-1">🤝</div>
+                                    <div className="text-gray-400 text-sm">一起合作</div>
+                                </div>
+                            </div>
+                            <a 
+                                href="https://github.com/walle250ai"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 mt-8 px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 transform hover:scale-105"
+                            >
+                                <span>📦</span>
+                                <span>访问我的 GitHub</span>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+        
+        // Footer
+        const Footer = () => {
+            return (
+                <footer className="py-8 px-4 border-t border-white/10">
+                    <div className="max-w-6xl mx-auto text-center">
+                        <p className="text-gray-500 text-sm">
+                            © 2024 陈桐. 用 ❤️ 和代码构建.
+                        </p>
+                        <p className="text-gray-600 text-xs mt-2">
+                            GitHub: <a href="https://github.com/walle250ai" target="_blank" className="text-purple-400 hover:text-purple-300">@walle250ai</a>
+                        </p>
+                    </div>
+                </footer>
+            );
+        };
+        
+        // Main App Component
+        const App = () => {
+            const [loading, setLoading] = useState(true);
+            
+            useEffect(() => {
+                const timer = setTimeout(() => {
+                    setLoading(false);
+                }, 1500);
+                return () => clearTimeout(timer);
+            }, []);
+            
+            if (loading) {
+                return (
+                    <div className="fixed inset-0 bg-gray-900 flex items-center justify-center z-50">
+                        <div className="text-center">
+                            <div className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                            <p className="text-white text-lg">加载中...</p>
+                            <p className="text-gray-500 text-sm mt-2">准备展示精彩内容</p>
+                        </div>
+                    </div>
+                );
+            }
+            
+            return (
+                <div>
+                    <Navbar />
+                    <Hero />
+                    <About />
+                    <Skills />
+                    <Projects />
+                    <Contact />
+                    <Footer />
+                </div>
+            );
+        };
+        
+        // Render the app
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+</body>
 </html>
