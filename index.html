@@ -1328,44 +1328,41 @@
         };
         
         // Project Card Component
-        const ProjectCard = ({ project, index, language, t, expandedProjectId, toggleExpand }) => {
-            const isExpanded = expandedProjectId === project.id;
-            
+        const ProjectCard = ({ project, index, language, t, goToProjectDetail }) => {
             return (
                 <div 
-                    className={`project-card glass-effect rounded-2xl overflow-hidden card-hover transition-all duration-500 ${isExpanded ? 'lg:col-span-3 lg:row-span-2' : ''}`}
+                    className="project-card glass-effect rounded-2xl overflow-hidden card-hover cursor-pointer"
                     style={{ animationDelay: `${index * 100}ms` }}
+                    onClick={() => goToProjectDetail(project.id)}
                 >
                     {/* Project Image */}
-                    <div className={`relative ${isExpanded ? 'h-64' : 'h-48'} overflow-hidden cursor-pointer`} onClick={() => toggleExpand(project.id)}>
+                    <div className="relative h-48 overflow-hidden">
                         <img 
                             src={project.image} 
                             alt={project.name}
-                            className={`w-full h-full object-cover transition-transform duration-500 ${isExpanded ? 'scale-105' : 'hover:scale-110'}`}
+                            className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
                         
-                        {/* Expand Indicator */}
-                        {!isExpanded && (
-                            <div className="absolute bottom-4 right-4 bg-purple-500/80 text-white px-3 py-1 rounded-full text-xs flex items-center gap-1 animate-pulse">
-                                <span>点击查看详情</span>
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </div>
-                        )}
+                        {/* View Detail Indicator */}
+                        <div className="absolute bottom-4 right-4 bg-purple-500/80 text-white px-3 py-1 rounded-full text-xs flex items-center gap-1 animate-pulse">
+                            <span>{language === 'zh' ? '点击查看详情' : 'View Details'}</span>
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </div>
                     </div>
                     
                     {/* Project Content */}
                     <div className="p-6">
                         <h3 className="text-xl font-bold text-white mb-2">{project.name}</h3>
-                        <p className={`text-gray-400 text-sm mb-4 ${isExpanded ? '' : 'line-clamp-2'}`}>{project.description[language]}</p>
+                        <p className="text-gray-400 text-sm mb-4 line-clamp-2">{project.description[language]}</p>
                         
                         {/* Tags */}
                         <div className="flex flex-wrap gap-2 mb-4">
-                            {project.tags.map((tag) => (
+                            {project.tags.map((tag, tagIndex) => (
                                 <span 
-                                    key={tag}
+                                    key={tagIndex}
                                     className="px-2 py-1 bg-purple-500/20 text-purple-300 text-xs rounded-full"
                                 >
                                     {tag}
@@ -1373,88 +1370,20 @@
                             ))}
                         </div>
                         
-                        {/* Expanded Content */}
-                        {isExpanded && (
-                            <div className="mt-6 pt-6 border-t border-white/10 animate-fadeIn">
-                                {/* Additional Info */}
-                                <div className="space-y-4">
-                                    {/* Project Features */}
-                                    <div>
-                                        <h4 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
-                                            <span>✨</span>
-                                            <span>{language === 'zh' ? '核心特性' : 'Key Features'}</span>
-                                        </h4>
-                                        <ul className="space-y-2">
-                                            {project.features ? (
-                                                project.features[language].map((feature, i) => (
-                                                    <li key={i} className="flex items-start gap-2 text-gray-300 text-sm">
-                                                        <span className="text-purple-400 mt-1">▹</span>
-                                                        <span>{feature}</span>
-                                                    </li>
-                                                ))
-                                            ) : (
-                                                project.tags.map((tag, i) => (
-                                                    <li key={i} className="flex items-start gap-2 text-gray-300 text-sm">
-                                                        <span className="text-purple-400 mt-1">▹</span>
-                                                        <span>{tag}</span>
-                                                    </li>
-                                                ))
-                                            )}
-                                        </ul>
-                                    </div>
-                                    
-                                    {/* Quick Actions */}
-                                    <div className="flex flex-wrap gap-3 pt-4">
-                                        <a 
-                                            href={project.github}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white text-sm font-medium hover:shadow-lg hover:shadow-purple-500/30 transition-all duration-300"
-                                        >
-                                            <span>📦</span>
-                                            <span>{language === 'zh' ? '查看源码' : 'View Source'}</span>
-                                        </a>
-                                        <button 
-                                            onClick={() => toggleExpand(project.id)}
-                                            className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-white text-sm font-medium hover:bg-white/20 transition-all duration-300"
-                                        >
-                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
-                                            </svg>
-                                            <span>{language === 'zh' ? '收起详情' : 'Collapse'}</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-                        
-                        {/* Links (only show when not expanded) */}
-                        {!isExpanded && (
-                            <div className="flex gap-3">
-                                <a 
-                                    href={project.github}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
-                                >
-                                    <span>📦</span>
-                                    <span>{t('projects.viewSource')}</span>
-                                </a>
-                            </div>
-                        )}
+                        {/* View Detail Button */}
+                        <button 
+                            className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-white/10 rounded-xl text-white text-sm font-medium hover:bg-white/20 transition-all duration-300"
+                        >
+                            <span>👁️</span>
+                            <span>{language === 'zh' ? '查看详情' : 'View Details'}</span>
+                        </button>
                     </div>
                 </div>
             );
         };
         
         // Theme Section Component
-        const ThemeSection = ({ title, subtitle, projects, language, t }) => {
-            const [expandedProjectId, setExpandedProjectId] = React.useState(null);
-            
-            const toggleExpand = (projectId) => {
-                setExpandedProjectId(prev => prev === projectId ? null : projectId);
-            };
-            
+        const ThemeSection = ({ title, subtitle, projects, language, t, goToProjectDetail }) => {
             return (
                 <div className="mb-16">
                     {/* Theme Title */}
@@ -1474,8 +1403,7 @@
                                 index={index} 
                                 language={language} 
                                 t={t}
-                                expandedProjectId={expandedProjectId}
-                                toggleExpand={toggleExpand}
+                                goToProjectDetail={goToProjectDetail}
                             />
                         ))}
                     </div>
@@ -1484,7 +1412,7 @@
         };
         
         // Projects Section
-        const Projects = ({ language, t }) => {
+        const Projects = ({ language, t, goToProjectDetail }) => {
             return (
                 <section id="projects" className="py-20 px-4">
                     <div className="max-w-6xl mx-auto">
@@ -1509,6 +1437,7 @@
                             projects={robotProjects}
                             language={language}
                             t={t}
+                            goToProjectDetail={goToProjectDetail}
                         />
                         
                         {/* Theme 2: 智能体Agent与AI编程助手 */}
@@ -1518,6 +1447,7 @@
                             projects={agentProjects}
                             language={language}
                             t={t}
+                            goToProjectDetail={goToProjectDetail}
                         />
                         
                         {/* Theme 3: 电商平台与短视频推流 */}
@@ -1527,6 +1457,7 @@
                             projects={ecommerceProjects}
                             language={language}
                             t={t}
+                            goToProjectDetail={goToProjectDetail}
                         />
                         
                         {/* Theme 4: 医疗AI架构与系统 */}
@@ -1536,6 +1467,7 @@
                             projects={medicalProjects}
                             language={language}
                             t={t}
+                            goToProjectDetail={goToProjectDetail}
                         />
                         
                         {/* Theme 5: 金融AI架构与系统 */}
@@ -1545,6 +1477,7 @@
                             projects={financeProjects}
                             language={language}
                             t={t}
+                            goToProjectDetail={goToProjectDetail}
                         />
                         
                         {/* View More CTA */}
@@ -1797,10 +1730,166 @@
             );
         };
         
+        // Project Detail Component
+        const ProjectDetail = ({ project, language, t, goHome }) => {
+            return (
+                <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900/20 to-gray-900">
+                    {/* Navbar */}
+                    <nav className="fixed top-0 left-0 right-0 z-50 glass-effect">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                            <div className="flex justify-between items-center py-4">
+                                <a 
+                                    href="#" 
+                                    onClick={(e) => { e.preventDefault(); goHome(); }}
+                                    className="text-2xl font-bold gradient-text"
+                                >
+                                    ← {language === 'zh' ? '返回主页' : 'Back to Home'}
+                                </a>
+                            </div>
+                        </div>
+                    </nav>
+                    
+                    {/* Hero Section */}
+                    <section className="pt-32 pb-16 px-4">
+                        <div className="max-w-6xl mx-auto">
+                            {/* Back Button */}
+                            <button 
+                                onClick={goHome}
+                                className="mb-8 px-6 py-2 bg-white/10 rounded-full text-gray-300 hover:text-white hover:bg-white/20 transition-all duration-300 flex items-center gap-2"
+                            >
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                </svg>
+                                {language === 'zh' ? '返回主页' : 'Back to Home'}
+                            </button>
+                            
+                            {/* Project Image */}
+                            <div className="mb-8 rounded-2xl overflow-hidden">
+                                <img 
+                                    src={project.image} 
+                                    alt={project.name}
+                                    className="w-full h-64 sm:h-80 md:h-96 object-cover"
+                                />
+                            </div>
+                            
+                            {/* Project Title */}
+                            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
+                                <span className="gradient-text">{project.name}</span>
+                            </h1>
+                            
+                            {/* Tags */}
+                            <div className="flex flex-wrap gap-3 mb-6">
+                                {project.tags.map((tag, index) => (
+                                    <span 
+                                        key={index}
+                                        className="px-4 py-2 bg-purple-500/20 text-purple-300 rounded-full text-sm"
+                                    >
+                                        {tag}
+                                    </span>
+                                ))}
+                            </div>
+                            
+                            {/* Description */}
+                            <p className="text-xl text-gray-300 mb-8 max-w-3xl">
+                                {project.description[language]}
+                            </p>
+                            
+                            {/* Features */}
+                            {project.features && (
+                                <div className="mb-12">
+                                    <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                                        <span className="text-3xl">✨</span>
+                                        {language === 'zh' ? '核心特性' : 'Key Features'}
+                                    </h2>
+                                    <div className="grid md:grid-cols-2 gap-4">
+                                        {project.features[language].map((feature, index) => (
+                                            <div 
+                                                key={index}
+                                                className="glass-effect rounded-xl p-6"
+                                            >
+                                                <div className="flex items-start gap-3">
+                                                    <div className="w-2 h-2 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full mt-2 flex-shrink-0"></div>
+                                                    <p className="text-gray-300">{feature}</p>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                            
+                            {/* Action Buttons */}
+                            <div className="flex flex-wrap gap-4 mt-8">
+                                <a 
+                                    href={project.github}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full font-semibold hover:shadow-lg hover:shadow-purple-500/30 transition-all duration-300 transform hover:scale-105"
+                                >
+                                    <span className="text-2xl">📦</span>
+                                    <span>{language === 'zh' ? '查看GitHub源码' : 'View on GitHub'}</span>
+                                </a>
+                                
+                                <button 
+                                    onClick={goHome}
+                                    className="flex items-center gap-3 px-8 py-4 glass-effect rounded-full font-semibold hover:bg-white/10 transition-all duration-300"
+                                >
+                                    <span className="text-2xl">🏠</span>
+                                    <span>{language === 'zh' ? '查看更多项目' : 'View More Projects'}</span>
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    {/* Related Projects Section */}
+                    <section className="py-16 px-4 bg-black/20">
+                        <div className="max-w-6xl mx-auto">
+                            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-12">
+                                <span className="gradient-text">
+                                    {language === 'zh' ? '探索更多项目' : 'Explore More Projects'}
+                                </span>
+                            </h2>
+                            <div className="text-center">
+                                <button 
+                                    onClick={goHome}
+                                    className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full font-semibold hover:shadow-lg hover:shadow-purple-500/30 transition-all duration-300 transform hover:scale-105"
+                                >
+                                    <span>🏠</span>
+                                    <span>{language === 'zh' ? '返回主页查看所有项目' : 'Back to Home for All Projects'}</span>
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    {/* Footer */}
+                    <footer className="py-8 px-4 border-t border-white/10">
+                        <div className="max-w-6xl mx-auto text-center">
+                            <p className="text-gray-500 text-sm">
+                                {t('footer.copyright').replace('{name}', i18n[language].name)}
+                            </p>
+                            <p className="text-gray-600 text-xs mt-2">
+                                {t('footer.githubLabel')}: <a href="https://github.com/walle250ai" target="_blank" className="text-purple-400 hover:text-purple-300">@walle250ai</a>
+                            </p>
+                        </div>
+                    </footer>
+                </div>
+            );
+        };
+        
+        // 整合所有项目到一个数组，方便通过ID查找
+        const allProjects = [
+            ...robotProjects,
+            ...agentProjects,
+            ...ecommerceProjects,
+            ...medicalProjects,
+            ...financeProjects
+        ];
+        
         // Main App Component
         const App = () => {
             const [loading, setLoading] = useState(true);
             const [language, setLanguage] = useState('zh');
+            const [currentView, setCurrentView] = useState('home'); // 'home' 或 'project'
+            const [selectedProjectId, setSelectedProjectId] = useState(null);
             
             const toggleLanguage = () => {
                 setLanguage(prev => prev === 'zh' ? 'en' : 'zh');
@@ -1817,6 +1906,18 @@
                     }
                 }
                 return value;
+            };
+            
+            const goToProjectDetail = (projectId) => {
+                setSelectedProjectId(projectId);
+                setCurrentView('project');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+            
+            const goHome = () => {
+                setCurrentView('home');
+                setSelectedProjectId(null);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             };
             
             useEffect(() => {
@@ -1838,13 +1939,31 @@
                 );
             }
             
+            if (currentView === 'project' && selectedProjectId) {
+                const project = allProjects.find(p => p.id === selectedProjectId);
+                if (project) {
+                    return (
+                        <ProjectDetail 
+                            project={project} 
+                            language={language} 
+                            t={t} 
+                            goHome={goHome}
+                        />
+                    );
+                }
+            }
+            
             return (
                 <div>
                     <Navbar language={language} toggleLanguage={toggleLanguage} t={t} />
                     <Hero language={language} t={t} />
                     <About language={language} t={t} />
                     <Skills language={language} t={t} />
-                    <Projects language={language} t={t} />
+                    <Projects 
+                        language={language} 
+                        t={t} 
+                        goToProjectDetail={goToProjectDetail}
+                    />
                     <Contact language={language} t={t} />
                     <Footer language={language} t={t} />
                 </div>
