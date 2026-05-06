@@ -696,6 +696,58 @@
                         "Extensible plugin architecture, supports custom tools and features"
                     ]
                 },
+                overview: {
+                    zh: "Trae Agent 是字节跳动开源的AI编程助手，在SWE-bench Verified排行榜中获得第一名。它专注于解决真实软件开发场景中的复杂问题，包括Bug修复、功能开发、代码重构等任务。通过多种LLM后端支持和智能的代码理解能力，Trae Agent 为开发者提供了高效的AI辅助编程体验。",
+                    en: "Trae Agent is ByteDance's open-source AI coding assistant, ranked #1 on the SWE-bench Verified leaderboard. It focuses on solving complex problems in real software development scenarios, including bug fixing, feature development, code refactoring, and more. With support for multiple LLM backends and intelligent code understanding, Trae Agent provides an efficient AI-assisted programming experience for developers."
+                },
+                techStack: {
+                    zh: [
+                        "Python：核心开发语言",
+                        "LangChain：LLM应用开发框架",
+                        "OpenAI API：主要LLM后端",
+                        "Anthropic Claude：另一个LLM后端选项",
+                        "Ollama：本地LLM支持",
+                        "Git：版本控制集成"
+                    ],
+                    en: [
+                        "Python: Core development language",
+                        "LangChain: LLM application development framework",
+                        "OpenAI API: Primary LLM backend",
+                        "Anthropic Claude: Another LLM backend option",
+                        "Ollama: Local LLM support",
+                        "Git: Version control integration"
+                    ]
+                },
+                useCases: {
+                    zh: [
+                        "Bug修复：自动定位和修复代码中的Bug",
+                        "功能开发：根据需求生成完整的功能实现",
+                        "代码重构：优化现有代码结构，提升代码质量",
+                        "代码审查：提供代码审查和改进建议",
+                        "技术文档：生成项目文档和代码注释"
+                    ],
+                    en: [
+                        "Bug fixing: Automatically locate and fix bugs in code",
+                        "Feature development: Generate complete feature implementations from requirements",
+                        "Code refactoring: Optimize existing code structure and improve code quality",
+                        "Code review: Provide code review and improvement suggestions",
+                        "Technical documentation: Generate project documentation and code comments"
+                    ]
+                },
+                quickStart: {
+                    zh: [
+                        "克隆仓库：git clone https://github.com/bytedance/trae-agent.git",
+                        "安装依赖：pip install -r requirements.txt",
+                        "配置API密钥：设置OPENAI_API_KEY环境变量",
+                        "运行示例：python examples/quick_start.py"
+                    ],
+                    en: [
+                        "Clone repository: git clone https://github.com/bytedance/trae-agent.git",
+                        "Install dependencies: pip install -r requirements.txt",
+                        "Configure API key: Set OPENAI_API_KEY environment variable",
+                        "Run example: python examples/quick_start.py"
+                    ]
+                },
                 github: "https://github.com/bytedance/trae-agent",
                 image: "assets/Trae Agent.png"
             },
@@ -723,6 +775,58 @@
                         "AI chat interface, discuss code problems with AI",
                         "Code refactoring and optimization suggestions, improve code quality",
                         "Supports multiple programming languages: Python, JavaScript, TypeScript, etc."
+                    ]
+                },
+                overview: {
+                    zh: "Cursor 是一款AI原生的集成开发环境（IDE），被称为增长最快的AI编程工具。它不仅提供传统IDE的所有功能，还深度集成了AI能力，能够理解整个代码库的上下文，提供智能的代码建议和重构。Cursor支持多文件编辑和复杂项目修改，是现代开发者的理想选择。",
+                    en: "Cursor is an AI-native integrated development environment (IDE), known as the fastest growing AI coding tool. It provides all the features of traditional IDEs while deeply integrating AI capabilities, understanding the entire codebase context, and providing intelligent code suggestions and refactoring. Cursor supports multi-file editing and complex project modifications, making it an ideal choice for modern developers."
+                },
+                techStack: {
+                    zh: [
+                        "Electron：跨平台桌面应用框架",
+                        "TypeScript：主要开发语言",
+                        "React：UI框架",
+                        "Monaco Editor：VS Code同款编辑器核心",
+                        "OpenAI API：AI能力支持",
+                        "Git：版本控制集成"
+                    ],
+                    en: [
+                        "Electron: Cross-platform desktop application framework",
+                        "TypeScript: Primary development language",
+                        "React: UI framework",
+                        "Monaco Editor: Same editor core as VS Code",
+                        "OpenAI API: AI capability support",
+                        "Git: Version control integration"
+                    ]
+                },
+                useCases: {
+                    zh: [
+                        "日常编程：获得智能代码补全和建议",
+                        "项目重构：AI辅助下的大规模代码重构",
+                        "学习编程：通过AI对话学习编程概念",
+                        "代码审查：获得代码质量和优化建议",
+                        "跨语言开发：在不同编程语言间平滑切换"
+                    ],
+                    en: [
+                        "Daily programming: Get intelligent code completion and suggestions",
+                        "Project refactoring: AI-assisted large-scale code refactoring",
+                        "Learning programming: Learn programming concepts through AI conversations",
+                        "Code review: Get code quality and optimization suggestions",
+                        "Cross-language development: Smoothly switch between different programming languages"
+                    ]
+                },
+                quickStart: {
+                    zh: [
+                        "下载安装：从 https://cursor.so 下载并安装",
+                        "登录账户：使用邮箱或GitHub账号登录",
+                        "配置API：选择LLM提供商（OpenAI/Anthropic）",
+                        "开始使用：打开项目，开始AI辅助编程"
+                    ],
+                    en: [
+                        "Download and install: Download from https://cursor.so",
+                        "Login: Use email or GitHub account to login",
+                        "Configure API: Choose LLM provider (OpenAI/Anthropic)",
+                        "Start using: Open project and begin AI-assisted programming"
                     ]
                 },
                 github: "https://github.com/getcursor/cursor",
@@ -776,6 +880,58 @@
                         "Extensible architecture, supports custom Agents and tasks"
                     ]
                 },
+                overview: {
+                    zh: "CrewAI 是一个开源的多智能体协作框架，它允许开发者创建由多个AI Agent组成的团队，这些Agent可以分工合作、共享任务、自动协调。CrewAI专注于任务编排和智能体协作，让复杂的工作流程能够由多个Agent协同完成，每个Agent有特定的角色和技能。",
+                    en: "CrewAI is an open-source multi-agent collaboration framework that allows developers to create teams of multiple AI Agents who can collaborate, share tasks, and coordinate automatically. CrewAI focuses on task orchestration and agent collaboration, enabling complex workflows to be completed by multiple Agents each with specific roles and skills."
+                },
+                techStack: {
+                    zh: [
+                        "Python：核心开发语言",
+                        "LangChain：LLM应用集成",
+                        "Pydantic：数据验证和设置管理",
+                        "OpenAI API：默认LLM后端",
+                        "Asyncio：异步任务处理",
+                        "CrewAI Tools：工具集成系统"
+                    ],
+                    en: [
+                        "Python: Core development language",
+                        "LangChain: LLM application integration",
+                        "Pydantic: Data validation and settings management",
+                        "OpenAI API: Default LLM backend",
+                        "Asyncio: Asynchronous task processing",
+                        "CrewAI Tools: Tool integration system"
+                    ]
+                },
+                useCases: {
+                    zh: [
+                        "内容创作：多个Agent协作生成高质量内容",
+                        "项目管理：Agent团队自动分配和跟踪任务",
+                        "研究分析：多个Agent协同进行数据和市场分析",
+                        "客户服务：专门的Agent团队处理不同类型的客户请求",
+                        "软件开发：由多个专业Agent组成的开发团队"
+                    ],
+                    en: [
+                        "Content creation: Multiple Agents collaborating to produce high-quality content",
+                        "Project management: Agent teams automatically assigning and tracking tasks",
+                        "Research and analysis: Multiple Agents collaborating on data and market analysis",
+                        "Customer service: Specialized Agent teams handling different types of customer requests",
+                        "Software development: Development teams composed of multiple specialized Agents"
+                    ]
+                },
+                quickStart: {
+                    zh: [
+                        "安装CrewAI：pip install crewai",
+                        "创建Agent：定义角色和任务的AI Agent",
+                        "组建团队：将多个Agent组合成一个Crew",
+                        "启动执行：运行Crew并查看协作结果"
+                    ],
+                    en: [
+                        "Install CrewAI: pip install crewai",
+                        "Create Agents: Define AI Agents with roles and tasks",
+                        "Build crew: Combine multiple Agents into a single Crew",
+                        "Execute: Run the Crew and see collaboration results"
+                    ]
+                },
                 github: "https://github.com/joaomdmoura/crewAI",
                 image: "assets/CrewAI.png"
             },
@@ -803,6 +959,58 @@
                         "Conversation management, efficiently manage conversations between agents",
                         "Code execution, supports code execution in sandbox",
                         "Extensible architecture, supports custom agent types and tool integration"
+                    ]
+                },
+                overview: {
+                    zh: "AutoGen 是微软开源的多智能体框架，专注于LLM驱动的多Agent对话系统。它允许开发者创建可以相互对话、使用工具、执行代码的Agent团队。AutoGen的核心特点是灵活的角色定义、强大的工具集成和对话管理能力，使其成为构建复杂AI应用的理想框架。",
+                    en: "AutoGen is Microsoft's open-source multi-agent framework focused on LLM-driven multi-agent conversation systems. It allows developers to create teams of Agents who can converse with each other, use tools, and execute code. AutoGen's core features are flexible role definition, powerful tool integration, and conversation management capabilities, making it an ideal framework for building complex AI applications."
+                },
+                techStack: {
+                    zh: [
+                        "Python：核心开发语言",
+                        "OpenAI API：主要LLM后端",
+                        "Docker：沙箱代码执行",
+                        "Pydantic：数据验证",
+                        "Rich：终端UI和交互",
+                        "AutoGen Core：框架核心组件"
+                    ],
+                    en: [
+                        "Python: Core development language",
+                        "OpenAI API: Primary LLM backend",
+                        "Docker: Sandbox code execution",
+                        "Pydantic: Data validation",
+                        "Rich: Terminal UI and interaction",
+                        "AutoGen Core: Framework core components"
+                    ]
+                },
+                useCases: {
+                    zh: [
+                        "多Agent对话：多个Agent协作解决复杂问题",
+                        "代码生成和审查：Agent团队共同开发和审查代码",
+                        "教育助手：专业角色的Agent辅助学习",
+                        "研究Agent：多个研究Agent协同工作",
+                        "商业应用：自动化工作流和任务处理"
+                    ],
+                    en: [
+                        "Multi-agent conversations: Multiple Agents collaborating to solve complex problems",
+                        "Code generation and review: Agent teams working together to develop and review code",
+                        "Educational assistants: Specialized role Agents assisting in learning",
+                        "Research agents: Multiple research Agents working collaboratively",
+                        "Business applications: Automated workflows and task processing"
+                    ]
+                },
+                quickStart: {
+                    zh: [
+                        "安装AutoGen：pip install pyautogen",
+                        "配置环境：设置OPENAI_API_KEY等环境变量",
+                        "创建Agent：定义第一个AssistantAgent",
+                        "运行示例：运行第一个多Agent对话示例"
+                    ],
+                    en: [
+                        "Install AutoGen: pip install pyautogen",
+                        "Configure environment: Set OPENAI_API_KEY and other environment variables",
+                        "Create Agent: Define your first AssistantAgent",
+                        "Run examples: Execute your first multi-agent conversation example"
                     ]
                 },
                 github: "https://github.com/microsoft/autogen",
