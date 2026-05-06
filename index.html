@@ -2750,6 +2750,7 @@
             const [language, setLanguage] = useState('zh');
             const [currentView, setCurrentView] = useState('home'); // 'home' 或 'project'
             const [selectedProjectId, setSelectedProjectId] = useState(null);
+            const [savedScrollPosition, setSavedScrollPosition] = useState(0);
             
             const toggleLanguage = () => {
                 setLanguage(prev => prev === 'zh' ? 'en' : 'zh');
@@ -2769,6 +2770,7 @@
             };
             
             const goToProjectDetail = (projectId) => {
+                setSavedScrollPosition(window.scrollY); // 保存当前滚动位置
                 setSelectedProjectId(projectId);
                 setCurrentView('project');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -2777,7 +2779,9 @@
             const goHome = () => {
                 setCurrentView('home');
                 setSelectedProjectId(null);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                setTimeout(() => {
+                    window.scrollTo({ top: savedScrollPosition, behavior: 'smooth' });
+                }, 100);
             };
             
             useEffect(() => {
