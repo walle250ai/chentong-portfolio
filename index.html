@@ -197,6 +197,58 @@
                         "GPU parallel acceleration, training multiple robot instances simultaneously"
                     ]
                 },
+                overview: {
+                    zh: "Unitree RL Gym 是一个专为宇树机器人设计的强化学习仿真环境，提供从快速原型设计到真实机器人部署的完整解决方案。该项目通过高度优化的物理引擎和并行计算能力，让机器人学习速度提升数十倍。",
+                    en: "Unitree RL Gym is a reinforcement learning simulation environment designed specifically for Unitree robots, providing a complete solution from rapid prototyping to real robot deployment. This project achieves tens of times faster robot learning through highly optimized physics engines and parallel computing capabilities."
+                },
+                techStack: {
+                    zh: [
+                        "PyTorch: 深度学习框架",
+                        "Isaac Gym: NVIDIA GPU加速物理仿真",
+                        "MuJoCo: 多用途物理引擎",
+                        "Gymnasium: 强化学习环境接口",
+                        "WandB: 实验追踪与可视化",
+                        "NumPy: 数值计算库"
+                    ],
+                    en: [
+                        "PyTorch: Deep Learning Framework",
+                        "Isaac Gym: NVIDIA GPU Accelerated Physics Simulation",
+                        "MuJoCo: Multi-purpose Physics Engine",
+                        "Gymnasium: Reinforcement Learning Environment Interface",
+                        "WandB: Experiment Tracking and Visualization",
+                        "NumPy: Numerical Computing Library"
+                    ]
+                },
+                useCases: {
+                    zh: [
+                        "四足机器人行走与跑步：研究不同地形下的步态优化",
+                        "人形机器人平衡控制：站立、行走、抗扰动测试",
+                        "多机器人协作：研究多个机器人之间的协调策略",
+                        "障碍规避：复杂环境中的路径规划与避障",
+                        "物体抓取：研究机器人的操作技能"
+                    ],
+                    en: [
+                        "Quadruped Locomotion: Optimizing gaits across different terrains",
+                        "Humanoid Balance Control: Standing, walking, and disturbance rejection",
+                        "Multi-robot Coordination: Collaborative strategies between multiple robots",
+                        "Obstacle Avoidance: Path planning in complex environments",
+                        "Object Manipulation: Researching robotic grasping and manipulation skills"
+                    ]
+                },
+                quickStart: {
+                    zh: [
+                        "克隆仓库: git clone https://github.com/unitreerobotics/unitree_rl_gym.git",
+                        "创建虚拟环境: conda create -n unitree python=3.8",
+                        "安装依赖: pip install -r requirements.txt",
+                        "运行示例: python train.py --task=go2"
+                    ],
+                    en: [
+                        "Clone repository: git clone https://github.com/unitreerobotics/unitree_rl_gym.git",
+                        "Create virtual environment: conda create -n unitree python=3.8",
+                        "Install dependencies: pip install -r requirements.txt",
+                        "Run example: python train.py --task=go2"
+                    ]
+                },
                 github: "https://github.com/unitreerobotics/unitree_rl_gym",
                 image: "assets/Unitree RL GYM.gif"
             },
@@ -1794,6 +1846,21 @@
                                 {project.description[language]}
                             </p>
                             
+                            {/* Overview (if available) */}
+                            {project.overview && (
+                                <div className="mb-12">
+                                    <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                                        <span className="text-3xl">📚</span>
+                                        {language === 'zh' ? '项目概述' : 'Project Overview'}
+                                    </h2>
+                                    <div className="glass-effect rounded-xl p-8">
+                                        <p className="text-gray-300 text-lg leading-relaxed">
+                                            {project.overview[language]}
+                                        </p>
+                                    </div>
+                                </div>
+                            )}
+                            
                             {/* Features */}
                             {project.features && (
                                 <div className="mb-12">
@@ -1813,6 +1880,80 @@
                                                 </div>
                                             </div>
                                         ))}
+                                    </div>
+                                </div>
+                            )}
+                            
+                            {/* Tech Stack (if available) */}
+                            {project.techStack && (
+                                <div className="mb-12">
+                                    <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                                        <span className="text-3xl">🛠️</span>
+                                        {language === 'zh' ? '技术栈' : 'Tech Stack'}
+                                    </h2>
+                                    <div className="grid md:grid-cols-3 gap-4">
+                                        {project.techStack[language].map((tech, index) => (
+                                            <div 
+                                                key={index}
+                                                className="glass-effect rounded-xl p-6 hover:bg-white/10 transition-all duration-300"
+                                            >
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center text-white font-bold">
+                                                        {tech.split(':')[0].charAt(0)}
+                                                    </div>
+                                                    <p className="text-gray-300 text-sm">{tech}</p>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                            
+                            {/* Use Cases (if available) */}
+                            {project.useCases && (
+                                <div className="mb-12">
+                                    <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                                        <span className="text-3xl">🎯</span>
+                                        {language === 'zh' ? '使用场景' : 'Use Cases'}
+                                    </h2>
+                                    <div className="grid md:grid-cols-2 gap-4">
+                                        {project.useCases[language].map((useCase, index) => (
+                                            <div 
+                                                key={index}
+                                                className="glass-effect rounded-xl p-6"
+                                            >
+                                                <div className="flex items-start gap-3">
+                                                    <div className="w-6 h-6 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0 mt-1">
+                                                        {index + 1}
+                                                    </div>
+                                                    <p className="text-gray-300">{useCase}</p>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                            
+                            {/* Quick Start (if available) */}
+                            {project.quickStart && (
+                                <div className="mb-12">
+                                    <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                                        <span className="text-3xl">🚀</span>
+                                        {language === 'zh' ? '快速开始' : 'Quick Start'}
+                                    </h2>
+                                    <div className="glass-effect rounded-xl p-6 overflow-hidden">
+                                        <div className="space-y-4">
+                                            {project.quickStart[language].map((step, index) => (
+                                                <div key={index} className="flex items-start gap-4">
+                                                    <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-lg flex items-center justify-center text-white font-bold flex-shrink-0">
+                                                        {index + 1}
+                                                    </div>
+                                                    <div className="flex-1 bg-gray-900/50 rounded-lg p-4 font-mono text-sm text-gray-300 border border-white/10">
+                                                        <code>{step}</code>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
                             )}
