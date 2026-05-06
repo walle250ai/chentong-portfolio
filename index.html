@@ -503,6 +503,76 @@
                     en: "Unitree imitation learning framework, based on LeRobot, supporting mainstream imitation learning algorithms like DP, ACT"
                 },
                 tags: ["Imitation Learning", "Embodied AI", "LeRobot", "Unitree"],
+                features: {
+                    zh: [
+                        "基于HuggingFace的LeRobot生态系统构建",
+                        "支持DP (Diffusion Policy) 和 ACT (Action Chunking with Transformer)",
+                        "可视化演示数据和训练过程",
+                        "一键式微调预训练模型",
+                        "支持多种宇树机器人平台",
+                        "集成强大的数据增强和预处理工具"
+                    ],
+                    en: [
+                        "Built on HuggingFace's LeRobot ecosystem",
+                        "Supports DP (Diffusion Policy) and ACT (Action Chunking with Transformer)",
+                        "Visualization of demonstration data and training process",
+                        "One-click fine-tuning of pre-trained models",
+                        "Supports multiple Unitree robot platforms",
+                        "Integrated powerful data augmentation and preprocessing tools"
+                    ]
+                },
+                overview: {
+                    zh: "Unitree IL LeRobot 是一个基于 HuggingFace LeRobot 生态系统构建的高级模仿学习框架。它专注于简化机器人策略的学习流程，从数据收集到模型部署的完整流水线，研究人员和开发者能够快速实现和验证机器人学习算法。",
+                    en: "Unitree IL LeRobot is an advanced imitation learning framework built on HuggingFace's LeRobot ecosystem. It focuses on simplifying the robot policy learning pipeline from data collection to model deployment, enabling researchers and developers to quickly implement and validate robotics learning algorithms."
+                },
+                techStack: {
+                    zh: [
+                        "LeRobot: HuggingFace的机器人学习框架",
+                        "PyTorch: 深度学习训练框架",
+                        "Diffusion Policy: 先进的策略学习方法",
+                        "HuggingFace Hub: 模型分享和部署平台",
+                        "OpenCV: 数据处理和可视化",
+                        "Transformers: Transformer模型库"
+                    ],
+                    en: [
+                        "LeRobot: HuggingFace's robotics learning framework",
+                        "PyTorch: Deep learning training framework",
+                        "Diffusion Policy: Advanced policy learning methods",
+                        "HuggingFace Hub: Model sharing and deployment platform",
+                        "OpenCV: Data processing and visualization",
+                        "Transformers: Transformer model library"
+                    ]
+                },
+                useCases: {
+                    zh: [
+                        "机器人操作技能：学习精细的物体抓取和放置",
+                        "移动机器人导航：通过演示学习路径规划",
+                        "多任务学习：单个模型学习多种不同行为",
+                        "Sim-to-Real 迁移：在仿真中学习，在真实机器人上部署",
+                        "机器人教育：教学和研究机器人学习"
+                    ],
+                    en: [
+                        "Robotic Manipulation Skills: Learning precise grasping and placement",
+                        "Mobile Robot Navigation: Learning path planning through demonstrations",
+                        "Multi-task Learning: Single model learning multiple behaviors",
+                        "Sim-to-Real Transfer: Learning in simulation, deploying on real robots",
+                        "Robotics Education: Teaching and researching robot learning"
+                    ]
+                },
+                quickStart: {
+                    zh: [
+                        "安装框架: pip install lerobot",
+                        "收集演示数据: 使用提供的工具收集机器人演示",
+                        "训练模型: python train.py --policy=diffusion_policy",
+                        "部署策略: 将训练好的模型在真实机器人上运行"
+                    ],
+                    en: [
+                        "Install framework: pip install lerobot",
+                        "Collect demonstrations: Use provided tools to collect robot demos",
+                        "Train model: python train.py --policy=diffusion_policy",
+                        "Deploy policy: Run trained model on real robots"
+                    ]
+                },
                 github: "https://github.com/unitreerobotics",
                 image: "assets/Unitree IL LeRobot.webp"
             },
