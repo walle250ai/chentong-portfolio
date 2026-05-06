@@ -143,6 +143,24 @@
             border-radius: 4px;
             transition: width 1s ease;
         }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .animate-pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
     </style>
 </head>
 <body>
@@ -161,6 +179,24 @@
                     en: "Unitree robot reinforcement learning implementation, supporting Go2, H1, G1 robots, integrated with Isaac Gym and MuJoCo simulation platforms"
                 },
                 tags: ["Isaac Sim", "MuJoCo", "Reinforcement Learning", "Unitree"],
+                features: {
+                    zh: [
+                        "支持Go2四足机器人、H1/G1人形机器人",
+                        "集成Isaac Gym和MuJoCo双仿真平台",
+                        "提供PPO、SAC等主流强化学习算法",
+                        "支持Sim-to-Real迁移，从仿真到真实机器人部署",
+                        "完整的训练、评估、可视化工具链",
+                        "支持GPU并行加速，同时训练多个机器人实例"
+                    ],
+                    en: [
+                        "Support for Go2 quadruped, H1/G1 humanoid robots",
+                        "Integrated with both Isaac Gym and MuJoCo simulation platforms",
+                        "Provides mainstream RL algorithms: PPO, SAC, etc.",
+                        "Sim-to-Real transfer from simulation to real robot deployment",
+                        "Complete toolchain for training, evaluation, and visualization",
+                        "GPU parallel acceleration, training multiple robot instances simultaneously"
+                    ]
+                },
                 github: "https://github.com/unitreerobotics/unitree_rl_gym",
                 image: "assets/Unitree RL GYM.gif"
             },
@@ -231,6 +267,24 @@
                     en: "ByteDance's open-source AI coding assistant, ranked #1 in SWE-bench Verified, supporting multiple LLMs (OpenAI, Anthropic, Ollama, etc.)"
                 },
                 tags: ["Trae", "AI Coding Assistant", "SWE-bench", "ByteDance"],
+                features: {
+                    zh: [
+                        "SWE-bench Verified排名第一，解决真实软件开发问题",
+                        "支持多种LLM后端：OpenAI GPT-4、Anthropic Claude、本地Ollama",
+                        "智能代码理解和上下文感知，理解整个代码库",
+                        "多文件编辑和重构，支持复杂项目修改",
+                        "内置测试和验证，确保代码质量和功能正确性",
+                        "可扩展的插件架构，支持自定义工具和功能"
+                    ],
+                    en: [
+                        "Ranked #1 in SWE-bench Verified, solving real software problems",
+                        "Supports multiple LLM backends: OpenAI GPT-4, Anthropic Claude, local Ollama",
+                        "Intelligent code understanding and context awareness, understands entire codebase",
+                        "Multi-file editing and refactoring, supports complex project modifications",
+                        "Built-in testing and verification, ensures code quality and functional correctness",
+                        "Extensible plugin architecture, supports custom tools and features"
+                    ]
+                },
                 github: "https://github.com/bytedance/trae-agent",
                 image: "assets/Trae Agent.png"
             },
@@ -242,6 +296,24 @@
                     en: "AI-native IDE with deep code understanding, multi-file editing, intelligent code completion - the fastest growing AI coding tool"
                 },
                 tags: ["Cursor", "AI IDE", "Code Understanding", "Multi-file Editing"],
+                features: {
+                    zh: [
+                        "深度代码理解，分析整个代码库上下文",
+                        "智能代码补全，基于项目上下文和代码风格",
+                        "多文件编辑，同时修改多个相关文件",
+                        "AI聊天界面，与AI对话讨论代码问题",
+                        "代码重构和优化建议，提升代码质量",
+                        "支持多种编程语言：Python、JavaScript、TypeScript等"
+                    ],
+                    en: [
+                        "Deep code understanding, analyzes entire codebase context",
+                        "Intelligent code completion, based on project context and coding style",
+                        "Multi-file editing, modify multiple related files simultaneously",
+                        "AI chat interface, discuss code problems with AI",
+                        "Code refactoring and optimization suggestions, improve code quality",
+                        "Supports multiple programming languages: Python, JavaScript, TypeScript, etc."
+                    ]
+                },
                 github: "https://github.com/getcursor/cursor",
                 image: "assets/Cursor.jpg"
             },
@@ -275,6 +347,24 @@
                     en: "Open-source multi-agent collaboration framework with autonomous AI Agent collaboration, task orchestration, and multi-agent conversations"
                 },
                 tags: ["CrewAI", "Multi-agent", "Agent Collaboration", "Task Orchestration"],
+                features: {
+                    zh: [
+                        "多智能体协作，多个AI Agent分工合作完成复杂任务",
+                        "角色定义，为每个Agent指定角色和职责",
+                        "任务编排，自动分解和分配任务",
+                        "工具使用，Agent可以使用各种工具和API",
+                        "异步执行，高效的任务执行和同步",
+                        "可扩展架构，支持自定义Agent和任务"
+                    ],
+                    en: [
+                        "Multi-agent collaboration, multiple AI Agents collaborate to complete complex tasks",
+                        "Role definition, specify roles and responsibilities for each Agent",
+                        "Task orchestration, automatically decompose and assign tasks",
+                        "Tool usage, Agents can use various tools and APIs",
+                        "Asynchronous execution, efficient task execution and synchronization",
+                        "Extensible architecture, supports custom Agents and tasks"
+                    ]
+                },
                 github: "https://github.com/joaomdmoura/crewAI",
                 image: "assets/CrewAI.png"
             },
@@ -286,6 +376,24 @@
                     en: "Microsoft's open-source multi-agent framework with LLM multi-agent conversations, custom roles, and tool integration"
                 },
                 tags: ["AutoGen", "Microsoft", "Multi-agent", "LLM Conversations"],
+                features: {
+                    zh: [
+                        "多智能体对话，支持人机交互",
+                        "自定义角色，灵活定义Agent的角色和行为",
+                        "工具使用，Agent可以调用各种工具和函数",
+                        "对话管理，高效管理智能体间的对话",
+                        "代码执行，支持在沙箱中执行代码",
+                        "可扩展架构，支持自定义Agent类型和工具集成"
+                    ],
+                    en: [
+                        "Multi-agent conversations, supports human-machine interaction",
+                        "Custom roles, flexibly define Agent roles and behaviors",
+                        "Tool usage, Agents can call various tools and functions",
+                        "Conversation management, efficiently manage conversations between agents",
+                        "Code execution, supports code execution in sandbox",
+                        "Extensible architecture, supports custom agent types and tool integration"
+                    ]
+                },
                 github: "https://github.com/microsoft/autogen",
                 image: "assets/AutoGen.jpg"
             }
@@ -371,6 +479,24 @@
                     en: "Open-source medical imaging AI toolkit based on PyTorch ecosystem, designed for medical imaging analysis with deep learning training, evaluation, and deployment support"
                 },
                 tags: ["Medical Imaging", "PyTorch", "Deep Learning", "MONAI"],
+                features: {
+                    zh: [
+                        "专为医疗影像设计的深度学习工具包",
+                        "丰富的数据增强和预处理功能，支持医学图像格式",
+                        "集成最新的医学图像分割、检测、分类算法",
+                        "支持3D医学图像处理和分析",
+                        "完整的训练、验证、测试流程",
+                        "支持模型部署和推理，提供生产级API"
+                    ],
+                    en: [
+                        "Deep learning toolkit specifically designed for medical imaging",
+                        "Rich data augmentation and preprocessing functions, supports medical image formats",
+                        "Integrated with latest medical image segmentation, detection, and classification algorithms",
+                        "Supports 3D medical image processing and analysis",
+                        "Complete training, validation, and testing workflows",
+                        "Supports model deployment and inference, provides production-grade APIs"
+                    ]
+                },
                 github: "https://github.com/Project-MONAI/MONAI",
                 image: "assets/MONAI.jpg"
             },
@@ -382,6 +508,24 @@
                     en: "The world's most widely used medical image segmentation framework with automatic dataset adaptation, strong reproducibility, high robustness, and 3D medical image segmentation support"
                 },
                 tags: ["Medical Image Segmentation", "U-Net", "3D Medical Imaging", "MIC-DKFZ"],
+                features: {
+                    zh: [
+                        "自动适应任何医学图像数据集，无需手动调参",
+                        "业界领先的分割精度，在众多医学图像挑战中夺冠",
+                        "支持2D、3D、2.5D等多种分割模式",
+                        "完整的预处理、训练、后处理流水线",
+                        "支持多模态医学图像分割",
+                        "开源且高度可扩展，易于集成到临床应用"
+                    ],
+                    en: [
+                        "Automatically adapts to any medical image dataset, no manual parameter tuning",
+                        "Industry-leading segmentation accuracy, won numerous medical imaging challenges",
+                        "Supports 2D, 3D, 2.5D, and other segmentation modes",
+                        "Complete preprocessing, training, and postprocessing pipelines",
+                        "Supports multi-modal medical image segmentation",
+                        "Open-source and highly extensible, easy to integrate into clinical applications"
+                    ]
+                },
                 github: "https://github.com/MIC-DKFZ/nnUNet",
                 image: "assets/nnU-Net.jpg"
             },
@@ -441,6 +585,24 @@
                     en: "Microsoft's open-source AI-driven quantitative research platform focusing on machine learning + quantitative investment, with built-in factor libraries, model templates (LightGBM, Transformer), and A-share data support"
                 },
                 tags: ["Quantitative Investment", "Microsoft", "AI Quant", "Factor Research"],
+                features: {
+                    zh: [
+                        "完整的量化投研平台，从数据到策略到回测",
+                        "内置大量金融因子库，支持因子挖掘和分析",
+                        "支持主流机器学习模型：LightGBM、XGBoost、Transformer",
+                        "高性能回测引擎，支持大规模策略回测",
+                        "支持中国A股市场数据接入",
+                        "可扩展架构，支持自定义模型和策略"
+                    ],
+                    en: [
+                        "Complete quantitative research platform, from data to strategy to backtesting",
+                        "Built-in extensive financial factor library, supports factor mining and analysis",
+                        "Supports mainstream machine learning models: LightGBM, XGBoost, Transformer",
+                        "High-performance backtesting engine, supports large-scale strategy backtesting",
+                        "Supports China A-share market data integration",
+                        "Extensible architecture, supports custom models and strategies"
+                    ]
+                },
                 github: "https://github.com/microsoft/qlib",
                 image: "assets/Qlib.jpg"
             },
@@ -1166,73 +1328,160 @@
         };
         
         // Project Card Component
-        const ProjectCard = ({ project, index, language, t }) => (
-            <div 
-                className="project-card glass-effect rounded-2xl overflow-hidden card-hover"
-                style={{ animationDelay: `${index * 100}ms` }}
-            >
-                {/* Project Image */}
-                <div className="relative h-48 overflow-hidden">
-                    <img 
-                        src={project.image} 
-                        alt={project.name}
-                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                </div>
-                
-                {/* Project Content */}
-                <div className="p-6">
-                    <h3 className="text-xl font-bold text-white mb-2">{project.name}</h3>
-                    <p className="text-gray-400 text-sm mb-4 line-clamp-2">{project.description[language]}</p>
-                    
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mb-4">
-                        {project.tags.map((tag) => (
-                            <span 
-                                key={tag}
-                                className="px-2 py-1 bg-purple-500/20 text-purple-300 text-xs rounded-full"
-                            >
-                                {tag}
-                            </span>
-                        ))}
+        const ProjectCard = ({ project, index, language, t, expandedProjectId, toggleExpand }) => {
+            const isExpanded = expandedProjectId === project.id;
+            
+            return (
+                <div 
+                    className={`project-card glass-effect rounded-2xl overflow-hidden card-hover transition-all duration-500 ${isExpanded ? 'lg:col-span-3 lg:row-span-2' : ''}`}
+                    style={{ animationDelay: `${index * 100}ms` }}
+                >
+                    {/* Project Image */}
+                    <div className={`relative ${isExpanded ? 'h-64' : 'h-48'} overflow-hidden cursor-pointer`} onClick={() => toggleExpand(project.id)}>
+                        <img 
+                            src={project.image} 
+                            alt={project.name}
+                            className={`w-full h-full object-cover transition-transform duration-500 ${isExpanded ? 'scale-105' : 'hover:scale-110'}`}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                        
+                        {/* Expand Indicator */}
+                        {!isExpanded && (
+                            <div className="absolute bottom-4 right-4 bg-purple-500/80 text-white px-3 py-1 rounded-full text-xs flex items-center gap-1 animate-pulse">
+                                <span>点击查看详情</span>
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                        )}
                     </div>
                     
-                    {/* Links */}
-                    <div className="flex gap-3">
-                        <a 
-                            href={project.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
-                        >
-                            <span>📦</span>
-                            <span>{t('projects.viewSource')}</span>
-                        </a>
+                    {/* Project Content */}
+                    <div className="p-6">
+                        <h3 className="text-xl font-bold text-white mb-2">{project.name}</h3>
+                        <p className={`text-gray-400 text-sm mb-4 ${isExpanded ? '' : 'line-clamp-2'}`}>{project.description[language]}</p>
+                        
+                        {/* Tags */}
+                        <div className="flex flex-wrap gap-2 mb-4">
+                            {project.tags.map((tag) => (
+                                <span 
+                                    key={tag}
+                                    className="px-2 py-1 bg-purple-500/20 text-purple-300 text-xs rounded-full"
+                                >
+                                    {tag}
+                                </span>
+                            ))}
+                        </div>
+                        
+                        {/* Expanded Content */}
+                        {isExpanded && (
+                            <div className="mt-6 pt-6 border-t border-white/10 animate-fadeIn">
+                                {/* Additional Info */}
+                                <div className="space-y-4">
+                                    {/* Project Features */}
+                                    <div>
+                                        <h4 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                                            <span>✨</span>
+                                            <span>{language === 'zh' ? '核心特性' : 'Key Features'}</span>
+                                        </h4>
+                                        <ul className="space-y-2">
+                                            {project.features ? (
+                                                project.features[language].map((feature, i) => (
+                                                    <li key={i} className="flex items-start gap-2 text-gray-300 text-sm">
+                                                        <span className="text-purple-400 mt-1">▹</span>
+                                                        <span>{feature}</span>
+                                                    </li>
+                                                ))
+                                            ) : (
+                                                project.tags.map((tag, i) => (
+                                                    <li key={i} className="flex items-start gap-2 text-gray-300 text-sm">
+                                                        <span className="text-purple-400 mt-1">▹</span>
+                                                        <span>{tag}</span>
+                                                    </li>
+                                                ))
+                                            )}
+                                        </ul>
+                                    </div>
+                                    
+                                    {/* Quick Actions */}
+                                    <div className="flex flex-wrap gap-3 pt-4">
+                                        <a 
+                                            href={project.github}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white text-sm font-medium hover:shadow-lg hover:shadow-purple-500/30 transition-all duration-300"
+                                        >
+                                            <span>📦</span>
+                                            <span>{language === 'zh' ? '查看源码' : 'View Source'}</span>
+                                        </a>
+                                        <button 
+                                            onClick={() => toggleExpand(project.id)}
+                                            className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-white text-sm font-medium hover:bg-white/20 transition-all duration-300"
+                                        >
+                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                                            </svg>
+                                            <span>{language === 'zh' ? '收起详情' : 'Collapse'}</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                        
+                        {/* Links (only show when not expanded) */}
+                        {!isExpanded && (
+                            <div className="flex gap-3">
+                                <a 
+                                    href={project.github}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
+                                >
+                                    <span>📦</span>
+                                    <span>{t('projects.viewSource')}</span>
+                                </a>
+                            </div>
+                        )}
                     </div>
                 </div>
-            </div>
-        );
+            );
+        };
         
         // Theme Section Component
-        const ThemeSection = ({ title, subtitle, projects, language, t }) => (
-            <div className="mb-16">
-                {/* Theme Title */}
-                <div className="text-center mb-12">
-                    <p className="text-gray-400 uppercase tracking-widest mb-2">{subtitle}</p>
-                    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
-                        <span className="gradient-text">{title}</span>
-                    </h3>
+        const ThemeSection = ({ title, subtitle, projects, language, t }) => {
+            const [expandedProjectId, setExpandedProjectId] = React.useState(null);
+            
+            const toggleExpand = (projectId) => {
+                setExpandedProjectId(prev => prev === projectId ? null : projectId);
+            };
+            
+            return (
+                <div className="mb-16">
+                    {/* Theme Title */}
+                    <div className="text-center mb-12">
+                        <p className="text-gray-400 uppercase tracking-widest mb-2">{subtitle}</p>
+                        <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
+                            <span className="gradient-text">{title}</span>
+                        </h3>
+                    </div>
+                    
+                    {/* Projects Grid */}
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {projects.map((project, index) => (
+                            <ProjectCard 
+                                key={project.id} 
+                                project={project} 
+                                index={index} 
+                                language={language} 
+                                t={t}
+                                expandedProjectId={expandedProjectId}
+                                toggleExpand={toggleExpand}
+                            />
+                        ))}
+                    </div>
                 </div>
-                
-                {/* Projects Grid */}
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {projects.map((project, index) => (
-                        <ProjectCard key={project.id} project={project} index={index} language={language} t={t} />
-                    ))}
-                </div>
-            </div>
-        );
+            );
+        };
         
         // Projects Section
         const Projects = ({ language, t }) => {
