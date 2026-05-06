@@ -260,6 +260,76 @@
                     en: "Lightweight reinforcement learning project based on MuJoCo, supporting Go2, A2, G1, H1_2, R1 robots"
                 },
                 tags: ["MuJoCo", "Reinforcement Learning", "Sim-to-Real", "Unitree"],
+                features: {
+                    zh: [
+                        "超轻量级设计，资源占用少，启动速度快",
+                        "支持Go2、A2、G1、H1_2、R1等多种宇树机器人",
+                        "内置PPO、SAC、TD3等强化学习算法",
+                        "支持实时可视化训练过程和结果",
+                        "一键导出策略到真实机器人部署",
+                        "灵活的奖励函数配置和任务定制"
+                    ],
+                    en: [
+                        "Ultra-lightweight design, minimal resource usage, fast startup",
+                        "Supports multiple Unitree robots: Go2, A2, G1, H1_2, R1",
+                        "Built-in RL algorithms: PPO, SAC, TD3, etc.",
+                        "Real-time visualization of training process and results",
+                        "One-click policy export to real robot deployment",
+                        "Flexible reward function configuration and task customization"
+                    ]
+                },
+                overview: {
+                    zh: "Unitree RL Mjlab 是一个轻量级但功能强大的强化学习框架，专注于快速原型设计和实验迭代。相比于 Unitree RL Gym，它更加注重易用性和部署效率，适合研究人员和开发者快速验证想法。",
+                    en: "Unitree RL Mjlab is a lightweight yet powerful reinforcement learning framework focused on rapid prototyping and experimental iteration. Compared to Unitree RL Gym, it emphasizes ease of use and deployment efficiency, making it perfect for researchers and developers to quickly validate ideas."
+                },
+                techStack: {
+                    zh: [
+                        "MuJoCo: 高性能物理仿真引擎",
+                        "PyTorch: 深度学习训练框架",
+                        "Gymnasium: 强化学习环境标准",
+                        "NumPy: 科学计算库",
+                        "Matplotlib: 数据可视化",
+                        "JAX (可选): 高性能数值计算加速"
+                    ],
+                    en: [
+                        "MuJoCo: High-performance physics simulation engine",
+                        "PyTorch: Deep learning training framework",
+                        "Gymnasium: RL environment standard",
+                        "NumPy: Scientific computing library",
+                        "Matplotlib: Data visualization",
+                        "JAX (Optional): High-performance numerical computing acceleration"
+                    ]
+                },
+                useCases: {
+                    zh: [
+                        "快速算法原型：快速测试新的强化学习算法",
+                        "教育与教学：机器人学习的教学工具",
+                        "研究实验：学术研究的实验平台",
+                        "策略调试：Sim-to-Real前的策略验证",
+                        "机器人竞赛：竞赛前的策略训练"
+                    ],
+                    en: [
+                        "Rapid Algorithm Prototyping: Quick testing of new RL algorithms",
+                        "Education and Teaching: Learning tool for robotics education",
+                        "Research Experiments: Experimental platform for academic research",
+                        "Policy Debugging: Policy validation before Sim-to-Real transfer",
+                        "Robot Competitions: Strategy training before competitions"
+                    ]
+                },
+                quickStart: {
+                    zh: [
+                        "克隆仓库: git clone https://github.com/unitreerobotics/unitree_rl_mjlab.git",
+                        "安装依赖: pip install -r requirements.txt",
+                        "训练Go2: python train.py --robot=go2",
+                        "可视化策略: python play.py --checkpoint=path/to/checkpoint.pt"
+                    ],
+                    en: [
+                        "Clone repository: git clone https://github.com/unitreerobotics/unitree_rl_mjlab.git",
+                        "Install dependencies: pip install -r requirements.txt",
+                        "Train Go2: python train.py --robot=go2",
+                        "Visualize policy: python play.py --checkpoint=path/to/checkpoint.pt"
+                    ]
+                },
                 github: "https://github.com/unitreerobotics/unitree_rl_mjlab",
                 image: "assets/Unitree RL Mjlab.webp"
             },
