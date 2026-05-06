@@ -584,6 +584,76 @@
                     en: "Unitree's open-source World Model-Action architecture for general robot learning across multiple robot types"
                 },
                 tags: ["World Model", "General Robotics", "Architecture Design", "Unitree"],
+                features: {
+                    zh: [
+                        "统一的世界模型架构，支持多类型机器人",
+                        "从观察中预测动作，实现灵活的控制",
+                        "可扩展的Transformer基础模型",
+                        "支持多种传感器输入模式",
+                        "Sim-to-Real 兼容性设计",
+                        "开源且易于定制和扩展"
+                    ],
+                    en: [
+                        "Unified world model architecture supporting multiple robot types",
+                        "Action prediction from observations for flexible control",
+                        "Extensible Transformer-based model",
+                        "Supports multiple sensor input modalities",
+                        "Sim-to-Real compatibility design",
+                        "Open-source and easy to customize and extend"
+                    ]
+                },
+                overview: {
+                    zh: "UnifoLM-WMA-0 是宇树机器人推出的开源世界模型-动作架构，旨在跨越多类型机器人实现通用机器人学习。它采用先进的Transformer架构，能够从各种传感器输入中学习统一的世界表示，并预测最优的控制动作，是通用人工智能在机器人领域的重要探索。",
+                    en: "UnifoLM-WMA-0 is Unitree's open-source World Model-Action architecture designed for general robot learning across multiple robot types. It uses advanced Transformer architecture to learn unified world representations from various sensor inputs and predict optimal control actions, representing an important exploration of AGI in robotics."
+                },
+                techStack: {
+                    zh: [
+                        "Transformer: 核心神经网络架构",
+                        "PyTorch: 深度学习训练框架",
+                        "World Models: 世界模型范式",
+                        "Visual Encoders: 视觉特征提取",
+                        "Action Heads: 策略输出模块",
+                        "MuJoCo/IsaacSim: 物理仿真环境"
+                    ],
+                    en: [
+                        "Transformer: Core neural network architecture",
+                        "PyTorch: Deep learning training framework",
+                        "World Models: World model paradigm",
+                        "Visual Encoders: Visual feature extraction",
+                        "Action Heads: Policy output modules",
+                        "MuJoCo/IsaacSim: Physics simulation environments"
+                    ]
+                },
+                useCases: {
+                    zh: [
+                        "通用机器人控制：一个模型控制多种不同机器人",
+                        "跨域迁移学习：在一种机器人上学到的知识迁移到另一种",
+                        "长期规划：利用世界模型进行长序列决策",
+                        "仿真到真实部署：在仿真中预训练然后在真实机器人上部署",
+                        "机器人研究：探索通用机器人学习的前沿方向"
+                    ],
+                    en: [
+                        "General Robot Control: One model controlling multiple different robots",
+                        "Cross-domain Transfer Learning: Knowledge learned on one robot transferred to another",
+                        "Long-term Planning: Using world models for long-sequence decision making",
+                        "Simulation to Real Deployment: Pre-training in simulation then deploying on real robots",
+                        "Robotics Research: Exploring frontiers in general robot learning"
+                    ]
+                },
+                quickStart: {
+                    zh: [
+                        "克隆仓库: git clone https://github.com/unitreerobotics/unifolm-wma-0",
+                        "安装依赖: pip install -r requirements.txt",
+                        "下载数据集: 下载预训练数据集",
+                        "训练模型: python train.py --config configs/unifolma_wma_0.yaml"
+                    ],
+                    en: [
+                        "Clone repository: git clone https://github.com/unitreerobotics/unifolma-wma-0",
+                        "Install dependencies: pip install -r requirements.txt",
+                        "Download dataset: Download pre-training datasets",
+                        "Train model: python train.py --config configs/unifolma_wma_0.yaml"
+                    ]
+                },
                 github: "https://github.com/unitreerobotics",
                 image: "assets/UnifoLM-WMA-0.jpg"
             }
