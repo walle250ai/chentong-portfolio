@@ -1781,20 +1781,76 @@
                 tags: ["Medical Image Segmentation", "U-Net", "3D Medical Imaging", "MIC-DKFZ"],
                 features: {
                     zh: [
-                        "自动适应任何医学图像数据集，无需手动调参",
-                        "业界领先的分割精度，在众多医学图像挑战中夺冠",
-                        "支持2D、3D、2.5D等多种分割模式",
-                        "完整的预处理、训练、后处理流水线",
-                        "支持多模态医学图像分割",
-                        "开源且高度可扩展，易于集成到临床应用"
+                        "🤖 自动适应任何医学图像数据集，无需手动调参",
+                        "🏆 业界领先的分割精度，在众多医学图像挑战中夺冠",
+                        "📊 支持2D、3D、2.5D等多种分割模式",
+                        "🔄 完整的预处理、训练、后处理流水线",
+                        "🎯 支持多模态医学图像分割",
+                        "🚀 开源且高度可扩展，易于集成到临床应用"
                     ],
                     en: [
-                        "Automatically adapts to any medical image dataset, no manual parameter tuning",
-                        "Industry-leading segmentation accuracy, won numerous medical imaging challenges",
-                        "Supports 2D, 3D, 2.5D, and other segmentation modes",
-                        "Complete preprocessing, training, and postprocessing pipelines",
-                        "Supports multi-modal medical image segmentation",
-                        "Open-source and highly extensible, easy to integrate into clinical applications"
+                        "🤖 Automatically adapts to any medical image dataset, no manual parameter tuning",
+                        "🏆 Industry-leading segmentation accuracy, won numerous medical imaging challenges",
+                        "📊 Supports 2D, 3D, 2.5D, and other segmentation modes",
+                        "🔄 Complete preprocessing, training, and postprocessing pipelines",
+                        "🎯 Supports multi-modal medical image segmentation",
+                        "🚀 Open-source and highly extensible, easy to integrate into clinical applications"
+                    ]
+                },
+                overview: {
+                    zh: "nnU-Net 是全球应用最广泛的医学图像分割框架，由德国癌症研究中心（DKFZ）开发。它的核心理念是\"无需手动调参\"，能够自动适应任何医学图像数据集。nnU-Net通过智能分析数据集特性，自动配置网络架构、预处理步骤、数据增强策略和训练参数，实现了出色的复现性和鲁棒性。它在众多医学图像挑战中夺冠，成为医学图像分割的事实上的标准。",
+                    en: "nnU-Net is the world's most widely used medical image segmentation framework, developed by the German Cancer Research Center (DKFZ). Its core philosophy is \"no manual parameter tuning\", automatically adapting to any medical image dataset. By intelligently analyzing dataset characteristics, nnU-Net automatically configures network architecture, preprocessing steps, data augmentation strategies, and training parameters, achieving excellent reproducibility and robustness. It has won numerous medical imaging challenges and become the de facto standard for medical image segmentation."
+                },
+                techStack: {
+                    zh: [
+                        "🐍 Python：核心开发语言",
+                        "🔥 PyTorch：深度学习框架",
+                        "🏥 医学图像处理：支持DICOM、NIfTI等格式",
+                        "🔢 NumPy/SciPy：数值计算",
+                        "📊 BatchGenerator：数据加载和增强",
+                        "🎯 集成U-Net及其变体网络架构"
+                    ],
+                    en: [
+                        "🐍 Python: Core development language",
+                        "🔥 PyTorch: Deep learning framework",
+                        "🏥 Medical image processing: DICOM, NIfTI, and other formats",
+                        "🔢 NumPy/SciPy: Numerical computing",
+                        "📊 BatchGenerator: Data loading and augmentation",
+                        "🎯 Integrated U-Net and its variant network architectures"
+                    ]
+                },
+                useCases: {
+                    zh: [
+                        "🧠 脑部分割：脑肿瘤、脑组织结构分割",
+                        "🫁 肺部分割：肺结节、肺叶、病变分割",
+                        "🫀 心脏分割：心肌、心室、心房分割",
+                        "🦴 骨骼分割：骨骼、关节、肿瘤分割",
+                        "🔬 病理图像：组织切片的细胞和结构分割",
+                        "🏥 临床辅助：手术规划、预后评估"
+                    ],
+                    en: [
+                        "🧠 Brain segmentation: Brain tumor and brain structure segmentation",
+                        "🫁 Lung segmentation: Lung nodules, lobes, and lesion segmentation",
+                        "🫀 Cardiac segmentation: Myocardium, ventricle, and atrium segmentation",
+                        "🦴 Bone segmentation: Skeletal, joint, and tumor segmentation",
+                        "🔬 Pathology images: Cell and structure segmentation in tissue slides",
+                        "🏥 Clinical assistance: Surgical planning and prognosis assessment"
+                    ]
+                },
+                quickStart: {
+                    zh: [
+                        "📦 安装nnU-Net：通过pip或从源码安装",
+                        "📊 准备数据：整理成nnU-Net要求的格式",
+                        "🤖 自动配置：nnU-Net自动分析数据集",
+                        "🚀 开始训练：运行训练流程，无需手动调参",
+                        "🎯 推理预测：在新数据上应用训练好的模型"
+                    ],
+                    en: [
+                        "📦 Install nnU-Net: Install via pip or from source",
+                        "📊 Prepare data: Organize into nnU-Net's required format",
+                        "🤖 Auto-configure: nnU-Net automatically analyzes the dataset",
+                        "🚀 Start training: Run training workflow, no manual tuning",
+                        "🎯 Inference: Apply trained models to new data"
                     ]
                 },
                 github: "https://github.com/MIC-DKFZ/nnUNet",
